@@ -20,5 +20,8 @@ class DatabaseSeeder extends Seeder
                 'identifier' => 'admin_001'
             ]
         );
+
+        // Landing Portal Globe Menus
+        $this->call(LandingMenuSeeder::class);
     }
 }
