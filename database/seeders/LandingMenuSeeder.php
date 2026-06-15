@@ -14,6 +14,9 @@ class LandingMenuSeeder extends Seeder
      */
     public function run(): void
     {
+        // Bersihkan data lama agar tidak terjadi duplikasi saat seeding ulang
+        LandingMenu::truncate();
+
         $menus = [
             [ 'name' => 'Web PDPT', 'desc' => 'Portal utama pangkalan data institusi dan informasi akademik terpadu.', 'icon' => '🏛️', 'url' => '/pdpt/home', 'theme' => 'blue', 'order_num' => 1 ],
             [ 'name' => 'Konversi Nilai', 'desc' => 'Alat bantu konversi sistem penilaian antar kurikulum dan standar nasional.', 'icon' => '🔄', 'url' => '/konversi-nilai/login', 'theme' => 'green', 'order_num' => 2 ],
