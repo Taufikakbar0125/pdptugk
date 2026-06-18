@@ -21,7 +21,7 @@
       --text-muted:#64748b;
       --text-light:#94a3b8;
       --border:#e2e8f0;
-      --success:#059669;
+      --danger:#ef4444;
       --radius:16px;
       --shadow:0 4px 24px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.04);
     }
@@ -91,7 +91,6 @@
     }
     .back-link:hover{color:var(--primary);background:var(--primary-light);border-color:rgba(124,58,237,.15)}
 
-    /* Card */
     .form-card{
       background:var(--card);
       border-radius:var(--radius);
@@ -106,7 +105,6 @@
       to{opacity:1;transform:translateY(0) scale(1)}
     }
 
-    /* Header */
     .card-header{
       padding:36px 32px 24px;
       text-align:center;
@@ -129,10 +127,8 @@
     .header-title{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-.02em;margin-bottom:6px}
     .header-sub{font-size:.78rem;color:var(--text-muted);line-height:1.5}
 
-    /* Body */
     .card-body{padding:28px 32px}
 
-    /* Info alert */
     .info-alert{
       display:flex;
       gap:10px;
@@ -142,11 +138,21 @@
       border:1px solid rgba(37,99,235,.08);
       margin-bottom:22px;
     }
-
     .info-alert svg{flex-shrink:0;color:#2563eb;margin-top:1px}
     .info-alert p{font-size:.76rem;color:var(--text-muted);line-height:1.5}
 
-    /* Input group */
+    .alert-error{
+      display:flex;
+      gap:10px;
+      padding:14px 16px;
+      border-radius:12px;
+      background:rgba(239,68,68,.04);
+      border:1px solid rgba(239,68,68,.12);
+      margin-bottom:18px;
+    }
+    .alert-error svg{flex-shrink:0;color:#ef4444;margin-top:1px}
+    .alert-error p{font-size:.78rem;color:#b91c1c;line-height:1.5;font-weight:500}
+
     .input-group{margin-bottom:18px}
 
     .input-label{
@@ -166,21 +172,51 @@
 
     .input-field{
       width:100%;
-      padding:12px 14px 12px 44px;
-      border:1.5px solid var(--border);
-      border-radius:12px;
+      padding:12px 14px 12px 44px !important;
+      border:1.5px solid var(--border) !important;
+      border-radius:12px !important;
       font-family:inherit;
       font-size:.88rem;
       color:var(--text);
-      background:rgba(248,250,252,.6);
+      background:rgba(248,250,252,.6) !important;
       transition:all .25s;
       outline:none;
     }
 
     .input-field::placeholder{color:var(--text-light)}
-    .input-field:focus{border-color:var(--primary);background:white;box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+    .input-field:focus{border-color:var(--primary) !important;background:white !important;box-shadow:0 0 0 3px rgba(124,58,237,.1)}
 
-    /* Buttons */
+    .captcha-group{margin-bottom:18px}
+    .captcha-row{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+    .captcha-row img{height:42px;border-radius:8px;border:1px solid var(--border)}
+    .captcha-refresh{
+      width:38px;height:38px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:rgba(248,250,252,.6);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--text-muted);
+      transition:all .2s;
+      flex-shrink:0;
+    }
+    .captcha-refresh:hover{background:var(--primary-light);color:var(--primary);border-color:rgba(124,58,237,.15)}
+    .captcha-input{
+      padding:10px 14px !important;
+      border:1.5px solid var(--border) !important;
+      border-radius:10px !important;
+      font-family:inherit;
+      font-size:.88rem;
+      color:var(--text);
+      background:rgba(248,250,252,.6) !important;
+      outline:none;
+      width:100%;
+      transition:all .25s;
+    }
+    .captcha-input:focus{border-color:var(--primary) !important;background:white !important;box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+
     .btn-submit{
       width:100%;
       padding:13px;
@@ -208,7 +244,6 @@
     }
     .btn-submit:active{transform:translateY(0)}
 
-    /* Footer */
     .card-footer{
       padding:16px 32px 24px;
       text-align:center;
@@ -235,31 +270,8 @@
 
     .copyright{text-align:center;font-size:.7rem;color:var(--text-light);margin-top:20px}
 
-    /* Success state */
-    .success-state{display:none;text-align:center;padding:20px 0}
-    .success-state.show{display:block}
-    .success-state .check-circle{
-      width:64px;height:64px;
-      border-radius:50%;
-      background:rgba(5,150,105,.08);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin:0 auto 16px;
-      color:var(--success);
-      animation:popIn .5s cubic-bezier(.22,1,.36,1);
-    }
-    @keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
-    .success-state h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px}
-    .success-state p{font-size:.8rem;color:var(--text-muted);line-height:1.5}
-
-    .form-state{transition:opacity .3s}
-    .form-state.hide{opacity:0;pointer-events:none;height:0;overflow:hidden}
-
-    /* Error state */
-    .input-group.error .input-field{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.08)}
-    .error-msg{display:none;font-size:.72rem;color:#ef4444;margin-top:5px;font-weight:500}
-    .input-group.error .error-msg{display:block}
+    .input-group.error .input-field{border-color:#ef4444 !important;box-shadow:0 0 0 3px rgba(239,68,68,.08)}
+    .error-msg{font-size:.72rem;color:#ef4444;margin-top:5px;font-weight:500}
 
     @media(max-width:480px){
       .card-header{padding:28px 24px 20px}
@@ -273,12 +285,12 @@
   <div class="shape shape-2"></div>
 
   <div class="page-container">
-    <a href="/validasi-data/login" class="back-link" id="backLink">
+    <a href="/validasi-data/login" class="back-link">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       Kembali ke Login
     </a>
 
-    <div class="form-card" id="formCard">
+    <div class="form-card">
       <!-- Header -->
       <div class="card-header">
         <div class="header-icon">
@@ -290,64 +302,83 @@
         </div>
         <div class="header-eyebrow">PDPT UGK</div>
         <h1 class="header-title">Lupa Kata Sandi</h1>
-        <p class="header-sub">Masukkan NIM dan email terdaftar Anda untuk menerima tautan reset kata sandi.</p>
+        <p class="header-sub">Masukkan NIM dan email terdaftar untuk menerima kode OTP reset kata sandi.</p>
       </div>
 
-      <!-- Form -->
+      <!-- Body -->
       <div class="card-body">
         <!-- Info alert -->
         <div class="info-alert">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          <p>Tautan reset akan dikirim ke email yang terdaftar di sistem akademik. Pastikan email Anda aktif.</p>
+          <p>Kode OTP akan dikirim ke email yang terdaftar. Pastikan email Anda aktif. Kode berlaku 10 menit.</p>
         </div>
 
-        <!-- Form state -->
-        <div class="form-state" id="formState">
-          <form id="resetForm" autocomplete="off">
-            <div class="input-group" id="nimGroup">
-              <label class="input-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-                NIM
-              </label>
-              <div class="input-wrap">
-                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-                <input type="text" class="input-field" id="nim" name="nim" placeholder="Contoh: 21501244001" required>
-              </div>
-              <span class="error-msg">NIM wajib diisi.</span>
-            </div>
-
-            <div class="input-group" id="emailGroup">
-              <label class="input-label">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                Email Terdaftar
-              </label>
-              <div class="input-wrap">
-                <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <input type="email" class="input-field" id="email" name="email" placeholder="nama@ugk.ac.id" required>
-              </div>
-              <span class="error-msg">Email wajib diisi dengan format yang benar.</span>
-            </div>
-
-            <button type="submit" class="btn-submit" id="btnSubmit">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              KIRIM TAUTAN RESET
-            </button>
-          </form>
-        </div>
-
-        <!-- Success state -->
-        <div class="success-state" id="successState">
-          <div class="check-circle">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        @if(session('error'))
+          <div class="alert-error">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p>{{ session('error') }}</p>
           </div>
-          <h3>Tautan Reset Terkirim!</h3>
-          <p>Silakan cek email Anda untuk melanjutkan proses reset kata sandi. Tautan berlaku selama 30 menit.</p>
-        </div>
+        @endif
+
+        <form action="{{ route('validasi-data.forgot-password.post') }}" method="POST" autocomplete="off">
+          @csrf
+
+          <div class="input-group">
+            <label class="input-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              NIM
+            </label>
+            <div class="input-wrap">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              <input type="text" class="input-field" name="nim" value="{{ old('nim') }}" placeholder="Contoh: 21501244001" required>
+            </div>
+            @error('nim')
+              <span class="error-msg">{{ $message }}</span>
+            @enderror
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email Terdaftar
+            </label>
+            <div class="input-wrap">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <input type="email" class="input-field" name="email" value="{{ old('email') }}" placeholder="nama@ugk.ac.id" required>
+            </div>
+            @error('email')
+              <span class="error-msg">{{ $message }}</span>
+            @enderror
+          </div>
+
+          <!-- CAPTCHA -->
+          <div class="captcha-group">
+            <label class="input-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Kode CAPTCHA
+            </label>
+            <div class="captcha-row">
+              <img src="{{ captcha_src() }}" alt="CAPTCHA" id="captchaImg">
+              <button type="button" class="captcha-refresh" onclick="refreshCaptcha()" title="Refresh CAPTCHA">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              </button>
+            </div>
+            <input type="text" class="captcha-input" name="captcha" placeholder="Masukkan kode di atas" required>
+            @error('captcha')
+              <span class="error-msg">{{ $message }}</span>
+            @enderror
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            KIRIM KODE OTP
+          </button>
+        </form>
       </div>
 
       <!-- Footer -->
       <div class="card-footer">
-        <a href="/validasi-data/login" class="login-link" id="loginLink">
+        <a href="/validasi-data/login" class="login-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
           Kembali ke halaman Login
         </a>
@@ -358,34 +389,9 @@
   </div>
 
   <script>
-    document.getElementById('resetForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      let valid = true;
-
-      const nim = document.getElementById('nim');
-      const email = document.getElementById('email');
-      const nimGroup = document.getElementById('nimGroup');
-      const emailGroup = document.getElementById('emailGroup');
-
-      nimGroup.classList.remove('error');
-      emailGroup.classList.remove('error');
-
-      if (!nim.value.trim()) { nimGroup.classList.add('error'); valid = false; }
-      if (!email.value.trim() || !email.value.includes('@')) { emailGroup.classList.add('error'); valid = false; }
-
-      if (valid) {
-        // Show success state
-        document.getElementById('formState').classList.add('hide');
-        document.querySelector('.info-alert').style.display = 'none';
-        document.getElementById('successState').classList.add('show');
-      }
-    });
-
-    document.querySelectorAll('.input-field').forEach(input => {
-      input.addEventListener('input', () => {
-        input.closest('.input-group').classList.remove('error');
-      });
-    });
+    function refreshCaptcha() {
+      document.getElementById('captchaImg').src = '/captcha/flat?' + Date.now();
+    }
   </script>
 </body>
 </html>

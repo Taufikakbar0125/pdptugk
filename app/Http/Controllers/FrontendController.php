@@ -29,8 +29,32 @@ class FrontendController extends Controller
                 }
                 return 'Lainnya';
             })->countBy(),
-            'dosen' => Dosen::select('jabatan', \DB::raw('count(*) as total'))->groupBy('jabatan')->get(),
-            'tendik' => Tendik::select('status_kepegawaian', \DB::raw('count(*) as total'))->groupBy('status_kepegawaian')->get(),
+            'dosen' => Dosen::select('jabatan', 'jabatan_terakhir')->get()
+                ->map(function($d) {
+                    $jab = trim($d->jabatan_terakhir ?: $d->jabatan ?: 'Lainnya');
+                    return $jab === '' ? 'Lainnya' : $jab;
+                })
+                ->countBy()
+                ->map(function($count, $jab) {
+                    return [
+                        'jabatan_akademik' => $jab,
+                        'total' => $count
+                    ];
+                })
+                ->values(),
+            'tendik' => Tendik::select('status_kepegawaian')->get()
+                ->map(function($t) {
+                    $status = trim($t->status_kepegawaian ?: 'Lainnya');
+                    return $status === '' ? 'Lainnya' : $status;
+                })
+                ->countBy()
+                ->map(function($count, $status) {
+                    return [
+                        'status_pegawai' => $status,
+                        'total' => $count
+                    ];
+                })
+                ->values(),
         ];
 
         return view('pdpt.home', compact('stats', 'chartData'));
@@ -94,14 +118,28 @@ class FrontendController extends Controller
     public function dataDosen()
     {
         $data = Dosen::orderBy('fakultas')->orderBy('nama')->get()->map(function($item) {
+            // Extract golongan from pangkat_terakhir if empty (e.g. "Pembina (IV/a)")
+            $gol = $item->golongan;
+            if (empty($gol) && !empty($item->pangkat_terakhir)) {
+                if (preg_match('/\(([^)]+)\)/', $item->pangkat_terakhir, $matches)) {
+                    $gol = $matches[1];
+                }
+            }
+
+            // Extract pangkat from pangkat_terakhir if empty
+            $pangkat = $item->pangkat;
+            if (empty($pangkat) && !empty($item->pangkat_terakhir)) {
+                $pangkat = trim(preg_replace('/\s*\([^)]+\)/', '', $item->pangkat_terakhir));
+            }
+
             return [
-                'fak' => $item->fakultas,
-                'prodi' => $item->prodi,
+                'fak' => $item->fakultas ?? '-',
+                'prodi' => $item->prodi ?? '-',
                 'nama' => $item->nama,
-                'pendidikan' => $item->pendidikan_terakhir,
-                'gol' => $item->golongan ?? '-',
-                'pangkat' => $item->pangkat ?? '-',
-                'jabatan' => $item->jabatan ?? '-',
+                'pendidikan' => $item->pendidikan_terakhir ?? '-',
+                'gol' => $gol ?? '-',
+                'pangkat' => $pangkat ?? '-',
+                'jabatan' => ($item->jabatan ?: $item->jabatan_terakhir) ?? '-',
                 'status' => $item->status_kepegawaian ?? 'PNS',
             ];
         });
@@ -160,5 +198,10 @@ class FrontendController extends Controller
     {
         $data = BukuAkademik::orderBy('start_year', 'desc')->orderBy('semester')->get();
         return view('pdpt.buku-info-akademik', compact('data'));
+    }
+
+    public function tentang()
+    {
+        return view('pdpt.tentang');
     }
 }

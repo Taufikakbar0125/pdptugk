@@ -286,6 +286,32 @@
     }
     .btn-login:active{transform:translateY(0);box-shadow:0 2px 8px rgba(37,99,235,.2)}
 
+    /* Register button */
+    .btn-register{
+      width:100%;
+      padding:13px;
+      border:1.5px solid var(--primary);
+      border-radius:12px;
+      background:transparent;
+      color:var(--primary);
+      font-family:inherit;
+      font-size:.88rem;
+      font-weight:700;
+      letter-spacing:.03em;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      transition:all .25s;
+      margin-top:12px;
+      text-decoration:none;
+    }
+    .btn-register:hover{
+      background:var(--primary-light);
+      transform:translateY(-1px);
+    }
+
     /* Card footer */
     .card-footer{
       padding:16px 32px 24px;
@@ -362,17 +388,30 @@
 
       <!-- Form -->
       <div class="card-body">
-        <form id="loginForm" autocomplete="off">
-          <div class="input-group" id="nimGroup">
+        {{-- Server-side errors or success --}}
+        @if ($errors->any())
+          <div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);color:#dc2626;padding:12px 16px;border-radius:10px;font-size:.8rem;font-weight:500;margin-bottom:16px;">
+            {{ $errors->first() }}
+          </div>
+        @endif
+        @if (session('success'))
+          <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);color:#059669;padding:12px 16px;border-radius:10px;font-size:.8rem;font-weight:500;margin-bottom:16px;">
+            {{ session('success') }}
+          </div>
+        @endif
+
+        <form id="loginForm" method="POST" action="{{ route('validasi-data.login.post') }}" autocomplete="off">
+          @csrf
+          <div class="input-group" id="loginKeyGroup">
             <label class="input-label">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-              NIM (Nomor Induk Mahasiswa)
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              NIM atau Alamat Email
             </label>
             <div class="input-wrap">
               <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-              <input type="text" class="input-field" id="nim" name="nim" placeholder="Contoh: 21501244001" required>
+              <input type="text" class="input-field" id="login_key" name="login_key" value="{{ old('login_key') }}" placeholder="Contoh: 21501244001 atau nama@email.com" required>
             </div>
-            <span class="error-msg">NIM wajib diisi.</span>
+            <span class="error-msg">NIM atau Email wajib diisi.</span>
           </div>
 
           <div class="input-group" id="passwordGroup">
@@ -395,6 +434,11 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
             MASUK
           </button>
+          
+          <a href="/validasi-data/register" class="btn-register">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+            DAFTARKAN AKUN
+          </a>
         </form>
       </div>
 
@@ -425,22 +469,21 @@
 
     // Form validation
     document.getElementById('loginForm').addEventListener('submit', (e) => {
-      e.preventDefault();
       let valid = true;
 
-      const nim = document.getElementById('nim');
+      const loginKey = document.getElementById('login_key');
       const pw = document.getElementById('password');
-      const nimGroup = document.getElementById('nimGroup');
+      const loginKeyGroup = document.getElementById('loginKeyGroup');
       const pwGroup = document.getElementById('passwordGroup');
 
-      nimGroup.classList.remove('error');
+      loginKeyGroup.classList.remove('error');
       pwGroup.classList.remove('error');
 
-      if (!nim.value.trim()) { nimGroup.classList.add('error'); valid = false; }
+      if (!loginKey.value.trim()) { loginKeyGroup.classList.add('error'); valid = false; }
       if (!pw.value.trim()) { pwGroup.classList.add('error'); valid = false; }
 
-      if (valid) {
-        alert('Login berhasil! (Fitur akan tersedia setelah integrasi database)');
+      if (!valid) {
+        e.preventDefault();
       }
     });
 

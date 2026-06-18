@@ -10,7 +10,7 @@ class DosenController extends Controller
 {
     public function index()
     {
-        $data = Dosen::orderBy('fakultas')->orderBy('nama')->get();
+        $data = Dosen::orderBy('nama')->get();
         return view('admin.dosen.index', compact('data'));
     }
 
@@ -22,14 +22,34 @@ class DosenController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fakultas' => 'required|string',
+            'kode_pt' => 'nullable|string',
+            'nama_pt' => 'nullable|string',
             'nama' => 'required|string',
-            'nip' => 'nullable|string',
+            'nuptk' => 'nullable|string',
             'nidn' => 'nullable|string',
-            'golongan' => 'nullable|string',
-            'pangkat' => 'nullable|string',
-            'jabatan' => 'nullable|string',
+            'tempat_lahir' => 'nullable|string',
+            'tanggal_lahir' => 'nullable|date',
+            'nip' => 'nullable|string',
+            'nik' => 'nullable|string',
+            'tmmd' => 'nullable|string',
             'status_kepegawaian' => 'required|string',
+            'ikatan_kerja' => 'nullable|string',
+            'pendidikan_terakhir' => 'nullable|string',
+            'tahun_masuk' => 'nullable|string',
+            'tahun_lulus' => 'nullable|string',
+            'jabatan_awal' => 'nullable|string',
+            'tmt_jabatan_awal' => 'nullable|date',
+            'jabatan_terakhir' => 'nullable|string',
+            'tmt_jabatan_terakhir' => 'nullable|date',
+            'pangkat_terakhir' => 'nullable|string',
+            'tmt_pangkat_terakhir' => 'nullable|date',
+            'masa_kerja_gol_tahun' => 'nullable|string',
+            'masa_kerja_gol_bulan' => 'nullable|string',
+            'jenis_sertifikasi' => 'nullable|string',
+            'tahun_sertifikasi' => 'nullable|string',
+            'nomor_sertifikasi' => 'nullable|string',
+            'sk_sertifikasi' => 'nullable|string',
+            'status_keaktifan' => 'nullable|string',
         ]);
 
         Dosen::create($validated);
@@ -44,14 +64,34 @@ class DosenController extends Controller
     public function update(Request $request, Dosen $dosen)
     {
         $validated = $request->validate([
-            'fakultas' => 'required|string',
+            'kode_pt' => 'nullable|string',
+            'nama_pt' => 'nullable|string',
             'nama' => 'required|string',
-            'nip' => 'nullable|string',
+            'nuptk' => 'nullable|string',
             'nidn' => 'nullable|string',
-            'golongan' => 'nullable|string',
-            'pangkat' => 'nullable|string',
-            'jabatan' => 'nullable|string',
+            'tempat_lahir' => 'nullable|string',
+            'tanggal_lahir' => 'nullable|date',
+            'nip' => 'nullable|string',
+            'nik' => 'nullable|string',
+            'tmmd' => 'nullable|string',
             'status_kepegawaian' => 'required|string',
+            'ikatan_kerja' => 'nullable|string',
+            'pendidikan_terakhir' => 'nullable|string',
+            'tahun_masuk' => 'nullable|string',
+            'tahun_lulus' => 'nullable|string',
+            'jabatan_awal' => 'nullable|string',
+            'tmt_jabatan_awal' => 'nullable|date',
+            'jabatan_terakhir' => 'nullable|string',
+            'tmt_jabatan_terakhir' => 'nullable|date',
+            'pangkat_terakhir' => 'nullable|string',
+            'tmt_pangkat_terakhir' => 'nullable|date',
+            'masa_kerja_gol_tahun' => 'nullable|string',
+            'masa_kerja_gol_bulan' => 'nullable|string',
+            'jenis_sertifikasi' => 'nullable|string',
+            'tahun_sertifikasi' => 'nullable|string',
+            'nomor_sertifikasi' => 'nullable|string',
+            'sk_sertifikasi' => 'nullable|string',
+            'status_keaktifan' => 'nullable|string',
         ]);
 
         $dosen->update($validated);
