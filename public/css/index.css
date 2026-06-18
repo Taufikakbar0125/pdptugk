@@ -290,10 +290,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .hero-title strong {
-  background: linear-gradient(135deg, #60a5fa, #a78bfa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 800;
 }
 
 .hero-desc {
