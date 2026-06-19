@@ -34,10 +34,6 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 10 3 12 0v-5"/></svg>
                     Program Studi
                 </a>
-                <a href="{{ route('admin.akreditasi-internasional.index') }}" class="nav-item {{ request()->routeIs('admin.akreditasi-internasional.*') ? 'active' : '' }}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-                    Internasional
-                </a>
 
                 <div class="nav-label">SDM</div>
                 <a href="{{ route('admin.dosen.index') }}" class="nav-item {{ request()->routeIs('admin.dosen.*') ? 'active' : '' }}">

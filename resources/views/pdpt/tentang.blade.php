@@ -293,7 +293,7 @@
           <p>Portal PDPT UGK ini dirancang untuk menjawab kebutuhan digitalisasi data universitas dengan fokus pada aspek-aspect penjaminan mutu:</p>
           <ul>
             <li><strong>Satu Pintu Data:</strong> Menghilangkan redudansi data dengan sistem penyimpanan yang terstruktur dengan baik.</li>
-            <li><strong>Mendukung Akreditasi:</strong> Menyediakan data akreditasi institusi, prodi, serta akreditasi internasional (ASIC, ASIIN) dalam satu tempat.</li>
+            <li><strong>Mendukung Akreditasi:</strong> Menyediakan data akreditasi institusi serta program studi dalam satu tempat.</li>
             <li><strong>Pengelolaan SDM:</strong> Menyediakan rekapitulasi data dosen dan tenaga kependidikan secara transparan untuk mempermudah monitoring status kepegawaian.</li>
           </ul>
         </div>
@@ -315,7 +315,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/></svg>
           </div>
           <div class="feature-title">Data Akreditasi</div>
-          <div class="feature-desc">Informasi lengkap peringkat akreditasi BAN-PT nasional dan sertifikasi internasional ASIC & ASIIN.</div>
+          <div class="feature-desc">Informasi lengkap peringkat akreditasi BAN-PT nasional untuk tingkat institusi dan program studi.</div>
         </div>
 
         <!-- Feature 2 -->

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AkreditasiInstitusi;
 use App\Models\AkreditasiProdi;
-use App\Models\AkreditasiInternasional;
 use App\Models\Dosen;
 use App\Models\Tendik;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -36,22 +35,6 @@ class TemplateController extends Controller
                     'example' => ['Teknik Informatika', 'S1', 'Fakultas Teknik', 'Unggul', '456/SK/BAN-PT/2026', '2026', '2026-06-18', '2031-06-18', 'Aktif'],
                     'model' => AkreditasiProdi::class,
                     'query' => function() { return AkreditasiProdi::all(); }
-                ];
-            case 'akreditasi-asic':
-                return [
-                    'filename' => 'template_akreditasi_internasional_asic.xlsx',
-                    'headers' => ['prodi', 'strata', 'fakultas', 'period', 'accreditation_code', 'status'],
-                    'example' => ['Teknik Informatika', 'S1', 'Fakultas Teknik', '2026-2031', 'ASIC-789', 'Aktif'],
-                    'model' => AkreditasiInternasional::class,
-                    'query' => function() { return AkreditasiInternasional::where('jenis', 'ASIC')->get(); }
-                ];
-            case 'akreditasi-asiin':
-                return [
-                    'filename' => 'template_akreditasi_internasional_asiin.xlsx',
-                    'headers' => ['prodi', 'strata', 'fakultas', 'period', 'accreditation_code', 'status'],
-                    'example' => ['Teknik Informatika', 'S1', 'Fakultas Teknik', '2026-2031', 'ASIIN-101', 'Aktif'],
-                    'model' => AkreditasiInternasional::class,
-                    'query' => function() { return AkreditasiInternasional::where('jenis', 'ASIIN')->get(); }
                 ];
             case 'dosen':
                 return [
@@ -176,18 +159,6 @@ class TemplateController extends Controller
                 'name' => 'Akreditasi Prodi',
                 'description' => 'Data akreditasi untuk semua program studi.',
                 'fields' => ['prodi', 'strata', 'fakultas', 'peringkat', 'no_sertifikat', 'penyelenggaraan', 'tanggal_akreditasi', 'tanggal_kadaluarsa', 'status']
-            ],
-            [
-                'id' => 'akreditasi-asic',
-                'name' => 'Akreditasi ASIC',
-                'description' => 'Data akreditasi internasional kategori ASIC.',
-                'fields' => ['prodi', 'strata', 'fakultas', 'period', 'accreditation_code', 'status']
-            ],
-            [
-                'id' => 'akreditasi-asiin',
-                'name' => 'Akreditasi ASIIN',
-                'description' => 'Data akreditasi internasional kategori ASIIN.',
-                'fields' => ['prodi', 'strata', 'fakultas', 'period', 'accreditation_code', 'status']
             ],
             [
                 'id' => 'dosen',
@@ -445,13 +416,6 @@ class TemplateController extends Controller
 
             if (!$hasData) continue;
 
-            // Inject jenis for akreditasi internasional
-            if ($category === 'akreditasi-asic') {
-                $rowData['jenis'] = 'ASIC';
-            } elseif ($category === 'akreditasi-asiin') {
-                $rowData['jenis'] = 'ASIIN';
-            }
-
             $dbData[] = $rowData;
         }
 
@@ -566,12 +530,6 @@ class TemplateController extends Controller
             }
 
             if (!$hasData) continue;
-
-            if ($category === 'akreditasi-asic') {
-                $rowData['jenis'] = 'ASIC';
-            } elseif ($category === 'akreditasi-asiin') {
-                $rowData['jenis'] = 'ASIIN';
-            }
 
             $dbData[] = $rowData;
         }

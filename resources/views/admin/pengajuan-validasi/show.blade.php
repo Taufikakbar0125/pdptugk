@@ -146,9 +146,11 @@
                     <div style="margin-bottom: 18px;">
                         <label style="display: block; font-size: 0.815rem; font-weight: 600; color: #334155; margin-bottom: 6px;">Status Pengajuan</label>
                         <select name="status" required style="width: 100%; padding: 10px; border: 1.5px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 0.875rem; background: white; cursor: pointer;">
-                            <option value="pengajuan" {{ old('status', $item->status) === 'pengajuan' ? 'selected' : '' }}>Diproses (Pengajuan)</option>
-                            <option value="proses" {{ old('status', $item->status) === 'proses' ? 'selected' : '' }}>Sedang Diproses (Proses)</option>
-                            <option value="selesai" {{ old('status', $item->status) === 'selesai' ? 'selected' : '' }}>Selesai / Selesai Divalidasi</option>
+                            <option value="data di terima" {{ old('status', $item->status) === 'data di terima' ? 'selected' : '' }}>Data Di Terima</option>
+                            <option value="data di tinjau" {{ old('status', $item->status) === 'data di tinjau' ? 'selected' : '' }}>Data Di Tinjau</option>
+                            <option value="data dikembalikan untuk diperbarui" {{ old('status', $item->status) === 'data dikembalikan untuk diperbarui' ? 'selected' : '' }}>Data Dikembalikan Untuk Diperbarui</option>
+                            <option value="data di proses" {{ old('status', $item->status) === 'data di proses' ? 'selected' : '' }}>Data Di Proses</option>
+                            <option value="pengajuan selesai" {{ old('status', $item->status) === 'pengajuan selesai' ? 'selected' : '' }}>Pengajuan Selesai</option>
                         </select>
                     </div>
 
@@ -187,7 +189,7 @@
                         </div>
                     </div>
 
-                @elseif($item->status === 'selesai')
+                @elseif($item->status === 'pengajuan selesai')
                     {{-- Status selesai, belum dipush --}}
                     @if(!$gdriveConnected)
                         <div style="text-align: center; padding: 10px 0;">
@@ -221,7 +223,7 @@
                     <div style="text-align: center; padding: 16px 0;">
                         <div style="font-size: 2rem; margin-bottom: 10px; opacity: 0.4;">☁️</div>
                         <div style="font-weight: 500; color: #94a3b8; font-size: 0.85rem; line-height: 1.5;">
-                            Fitur arsip Google Drive hanya tersedia setelah status pengajuan diubah menjadi <strong>"Selesai"</strong>.
+                            Fitur arsip Google Drive hanya tersedia setelah status pengajuan diubah menjadi <strong>"Pengajuan Selesai"</strong>.
                         </div>
                     </div>
                 @endif

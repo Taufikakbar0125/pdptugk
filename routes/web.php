@@ -68,6 +68,10 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
         ->name('validasi-data.dashboard');
     Route::post('/validasi-data/pengajuan', [ValidasiDataAuthController::class, 'storeRequest'])
         ->name('validasi-data.pengajuan.post');
+    Route::get('/validasi-data/pengajuan/{id}/edit', [ValidasiDataAuthController::class, 'editRequest'])
+        ->name('validasi-data.pengajuan.edit');
+    Route::put('/validasi-data/pengajuan/{id}', [ValidasiDataAuthController::class, 'updateRequest'])
+        ->name('validasi-data.pengajuan.update');
     Route::post('/validasi-data/logout', [ValidasiDataAuthController::class, 'logout'])
         ->name('validasi-data.logout');
 });
@@ -77,8 +81,6 @@ use App\Http\Controllers\FrontendController;
 Route::get('/pdpt/home', [FrontendController::class, 'pdptHome']);
 Route::get('/pdpt/akreditasi-institusi', [FrontendController::class, 'akreditasiInstitusi']);
 Route::get('/pdpt/akreditasi-prodi', [FrontendController::class, 'akreditasiProdi']);
-Route::get('/pdpt/akreditasi-asic', [FrontendController::class, 'akreditasiAsic']);
-Route::get('/pdpt/akreditasi-asiin', [FrontendController::class, 'akreditasiAsiin']);
 Route::get('/pdpt/data-dosen', [FrontendController::class, 'dataDosen']);
 Route::get('/pdpt/data-tendik', [FrontendController::class, 'dataTendik']);
 Route::get('/pdpt/rekap-dosen', [FrontendController::class, 'rekapDosen']);
@@ -93,7 +95,6 @@ use App\Http\Controllers\Admin\AuthController;
 
 use App\Http\Controllers\Admin\AkreditasiInstitusiController;
 use App\Http\Controllers\Admin\AkreditasiProdiController;
-use App\Http\Controllers\Admin\AkreditasiInternasionalController;
 use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\Admin\TendikController;
 
@@ -111,7 +112,6 @@ Route::prefix('admin')->group(function () {
                 'prodi' => \App\Models\AkreditasiProdi::count(),
                 'dosen' => \App\Models\Dosen::count(),
                 'tendik' => \App\Models\Tendik::count(),
-                'internasional' => \App\Models\AkreditasiInternasional::count(),
                 'buku' => \App\Models\BukuAkademik::count()
             ];
             $chartData = [
@@ -127,7 +127,6 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('akreditasi-institusi', AkreditasiInstitusiController::class, ['as' => 'admin']);
         Route::resource('akreditasi-prodi', AkreditasiProdiController::class, ['as' => 'admin']);
-        Route::resource('akreditasi-internasional', AkreditasiInternasionalController::class, ['as' => 'admin']);
         Route::resource('dosen', DosenController::class, ['as' => 'admin']);
         Route::resource('tendik', TendikController::class, ['as' => 'admin']);
         Route::resource('buku-akademik', \App\Http\Controllers\Admin\BukuAkademikController::class, ['as' => 'admin']);

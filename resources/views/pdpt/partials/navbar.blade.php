@@ -4,12 +4,12 @@
      
      activePage values:
        home, data-dosen, data-tendik, 
-       akreditasi-institusi, akreditasi-prodi, akreditasi-asic, akreditasi-asiin
+       akreditasi-institusi, akreditasi-prodi
      ══════════════════════════════════════════════ --}}
 
 @php
   $activePage = $activePage ?? '';
-  $isDataActive = in_array($activePage, ['data-dosen', 'data-tendik', 'akreditasi-institusi', 'akreditasi-prodi', 'akreditasi-asic', 'akreditasi-asiin']);
+  $isDataActive = in_array($activePage, ['data-dosen', 'data-tendik', 'akreditasi-institusi', 'akreditasi-prodi']);
   $isRekapActive = in_array($activePage, ['rekap-dosen', 'rekap-tendik']);
 @endphp
 
@@ -48,14 +48,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 10 3 12 0v-5"/></svg>
           Akreditasi Prodi
         </a>
-        <a href="/pdpt/akreditasi-asic" class="nav-dropdown-item {{ $activePage === 'akreditasi-asic' ? 'dd-active' : '' }}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-          Akreditasi ASIC
-        </a>
-        <a href="/pdpt/akreditasi-asiin" class="nav-dropdown-item {{ $activePage === 'akreditasi-asiin' ? 'dd-active' : '' }}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-          Akreditasi ASIIN
-        </a>
         <div class="nav-dropdown-divider"></div>
         <div class="nav-dropdown-header">SDM</div>
         <a href="/pdpt/data-dosen" class="nav-dropdown-item {{ $activePage === 'data-dosen' ? 'dd-active' : '' }}">
@@ -89,11 +81,7 @@
     {{-- Static links --}}
     <a href="/pdpt/buku-info-akademik" class="nav-item {{ $activePage === 'buku-info' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-      Buku Informasi Akademik
-    </a>
-    <a href="#" class="nav-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Panduan APS
+      Panduan
     </a>
     <a href="/pdpt/tentang" class="nav-item {{ $activePage === 'tentang' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>

@@ -54,7 +54,7 @@ class PengajuanValidasiController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'status' => 'required|in:pengajuan,proses,selesai',
+            'status' => 'required|in:data di terima,data di tinjau,data dikembalikan untuk diperbarui,data di proses,pengajuan selesai',
             'catatan_admin' => 'nullable|string|max:1000',
         ]);
 
@@ -75,8 +75,8 @@ class PengajuanValidasiController extends Controller
         $item = PengajuanValidasi::with(['jenisMasalah', 'pengajuanDokumens'])->findOrFail($id);
 
         // Validasi: hanya bisa push jika status selesai dan belum pernah dipush
-        if ($item->status !== 'selesai') {
-            return back()->with('error', 'Hanya pengajuan dengan status "Selesai" yang dapat di-push ke Google Drive.');
+        if ($item->status !== 'pengajuan selesai') {
+            return back()->with('error', 'Hanya pengajuan dengan status "Pengajuan Selesai" yang dapat di-push ke Google Drive.');
         }
 
         if ($item->gdrive_pushed_at) {

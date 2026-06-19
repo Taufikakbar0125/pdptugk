@@ -276,7 +276,7 @@ class ValidasiDataAuthController extends Controller
             'email'            => $request->email,
             'jenis_masalah_id' => $request->jenis_masalah_id,
             'keterangan'       => $request->keterangan,
-            'status'           => 'pengajuan',
+            'status'           => 'data di terima',
         ]);
 
         if ($jenisMasalah) {
@@ -294,6 +294,144 @@ class ValidasiDataAuthController extends Controller
         }
 
         return back()->with('success', 'Pengajuan perubahan data Anda berhasil dikirim dan akan segera diproses oleh Admin.');
+    }
+
+    /**
+     * Tampilkan form edit pengajuan (hanya jika status dikembalikan untuk diperbarui).
+     */
+    public function editRequest($id)
+    {
+        $user = \Auth::user();
+        $pengajuan = \App\Models\PengajuanValidasi::where('user_id', $user->id)
+            ->with(['jenisMasalah', 'pengajuanDokumens'])
+            ->findOrFail($id);
+
+        if ($pengajuan->status !== 'data dikembalikan untuk diperbarui') {
+            return redirect()->route('validasi-data.dashboard')
+                ->with('error', 'Pengajuan ini tidak dapat diedit karena statusnya bukan dikembalikan.');
+        }
+
+        $jenisMasalah = \App\Models\JenisMasalah::with('dokumenPersyaratans')->orderBy('nama_masalah', 'asc')->get();
+
+        return view('validasi-data.edit', compact('user', 'pengajuan', 'jenisMasalah'));
+    }
+
+    /**
+     * Proses pembaruan data pengajuan revisi.
+     */
+    public function updateRequest(Request $request, $id)
+    {
+        $user = \Auth::user();
+        $pengajuan = \App\Models\PengajuanValidasi::where('user_id', $user->id)->findOrFail($id);
+
+        if ($pengajuan->status !== 'data dikembalikan untuk diperbarui') {
+            return redirect()->route('validasi-data.dashboard')
+                ->with('error', 'Pengajuan ini tidak dapat diperbarui.');
+        }
+
+        $rules = [
+            'nama'             => 'required|string|max:100',
+            'nim'              => 'required|string|max:20',
+            'prodi'            => 'required|string|max:100',
+            'fakultas'         => 'required|string|max:100',
+            'angkatan'         => 'required|string|max:10',
+            'no_hp'            => 'required|string|max:20',
+            'email'            => 'required|email|max:150',
+            'jenis_masalah_id' => 'required|exists:jenis_masalahs,id',
+            'keterangan'       => 'nullable|string|max:1000',
+        ];
+
+        $messages = [
+            'nama.required'             => 'Nama Lengkap wajib diisi.',
+            'nim.required'              => 'NIM wajib diisi.',
+            'prodi.required'            => 'Program Studi wajib diisi.',
+            'fakultas.required'         => 'Fakultas wajib diisi.',
+            'angkatan.required'         => 'Angkatan wajib diisi.',
+            'no_hp.required'            => 'Nomor HP wajib diisi.',
+            'email.required'            => 'Alamat Email wajib diisi.',
+            'email.email'               => 'Format email tidak valid.',
+            'jenis_masalah_id.required' => 'Jenis Masalah wajib dipilih.',
+            'jenis_masalah_id.exists'   => 'Jenis Masalah tidak valid.',
+            'keterangan.max'            => 'Keterangan maksimal 1000 karakter.',
+        ];
+
+        $isCategoryChanged = ($pengajuan->jenis_masalah_id != $request->jenis_masalah_id);
+
+        $jenisMasalah = null;
+        if ($request->filled('jenis_masalah_id')) {
+            $jenisMasalah = \App\Models\JenisMasalah::with('dokumenPersyaratans')->find($request->jenis_masalah_id);
+            if ($jenisMasalah) {
+                foreach ($jenisMasalah->dokumenPersyaratans as $doc) {
+                    $inputKey = 'bukti_files.' . $doc->id;
+                    
+                    $hasExistingDoc = false;
+                    if (!$isCategoryChanged) {
+                        $hasExistingDoc = $pengajuan->pengajuanDokumens()->where('nama_dokumen', $doc->nama_dokumen)->exists();
+                    }
+
+                    $fileRules = [];
+                    if ($doc->is_wajib && !$hasExistingDoc) {
+                        $fileRules[] = 'required';
+                    } else {
+                        $fileRules[] = 'nullable';
+                    }
+                    $fileRules = array_merge($fileRules, ['file', 'mimes:pdf,jpg,jpeg,png', 'max:2048']);
+                    
+                    $rules[$inputKey] = $fileRules;
+                    
+                    if ($doc->is_wajib && !$hasExistingDoc) {
+                        $messages[$inputKey . '.required'] = 'Dokumen "' . $doc->nama_dokumen . '" wajib diunggah.';
+                    }
+                    $messages[$inputKey . '.file'] = 'Berkas "' . $doc->nama_dokumen . '" harus berupa file.';
+                    $messages[$inputKey . '.mimes'] = 'Berkas "' . $doc->nama_dokumen . '" harus berformat PDF, JPG, JPEG, atau PNG.';
+                    $messages[$inputKey . '.max'] = 'Berkas "' . $doc->nama_dokumen . '" maksimal berukuran 2MB.';
+                }
+            }
+        }
+
+        $request->validate($rules, $messages);
+
+        if ($isCategoryChanged) {
+            foreach ($pengajuan->pengajuanDokumens as $oldDoc) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($oldDoc->file_path);
+                $oldDoc->delete();
+            }
+        }
+
+        $pengajuan->update([
+            'nama'             => $request->nama,
+            'nim'              => $request->nim,
+            'prodi'            => $request->prodi,
+            'fakultas'         => $request->fakultas,
+            'angkatan'         => $request->angkatan,
+            'no_hp'            => $request->no_hp,
+            'email'            => $request->email,
+            'jenis_masalah_id' => $request->jenis_masalah_id,
+            'keterangan'       => $request->keterangan,
+            'status'           => 'data di terima',
+        ]);
+
+        if ($jenisMasalah) {
+            foreach ($jenisMasalah->dokumenPersyaratans as $doc) {
+                $inputName = 'bukti_files.' . $doc->id;
+                if ($request->hasFile($inputName)) {
+                    $existingDoc = $pengajuan->pengajuanDokumens()->where('nama_dokumen', $doc->nama_dokumen)->first();
+                    if ($existingDoc) {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($existingDoc->file_path);
+                        $existingDoc->delete();
+                    }
+
+                    $path = $request->file($inputName)->store('uploads/bukti', 'public');
+                    $pengajuan->pengajuanDokumens()->create([
+                        'nama_dokumen' => $doc->nama_dokumen,
+                        'file_path'    => $path,
+                        'is_wajib'     => $doc->is_wajib,
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('validasi-data.dashboard')->with('success', 'Pengajuan berhasil diperbarui dan dikirim kembali untuk ditinjau ulang oleh Admin.');
     }
 
     // ═══════════════════════════════════════════════════

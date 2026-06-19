@@ -581,12 +581,21 @@
                       </div>
                     </td>
                     <td style="text-align:center; vertical-align:middle;">
-                      @if ($req->status === 'pengajuan')
-                        <span class="badge badge-pending">Pengajuan</span>
-                      @elseif ($req->status === 'proses')
-                        <span class="badge badge-process">Proses</span>
-                      @elseif ($req->status === 'selesai')
-                        <span class="badge badge-success">Selesai</span>
+                      @if ($req->status === 'data di terima')
+                        <span class="badge" style="background: rgba(100, 116, 139, 0.08); border: 1px solid rgba(100, 116, 139, 0.15); color: #475569; white-space: nowrap;">Di Terima</span>
+                      @elseif ($req->status === 'data di tinjau')
+                        <span class="badge" style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.15); color: #d97706; white-space: nowrap;">Di Tinjau</span>
+                      @elseif ($req->status === 'data dikembalikan untuk diperbarui')
+                        <span class="badge" style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.15); color: #dc2626; white-space: nowrap;">Dikembalikan</span>
+                        <div style="margin-top: 6px;">
+                          <a href="{{ route('validasi-data.pengajuan.edit', $req->id) }}" style="display: inline-block; padding: 4px 8px; background: #dc2626; color: white; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-decoration: none; transition: background 0.2s; white-space: nowrap;">Revisi Berkas</a>
+                        </div>
+                      @elseif ($req->status === 'data di proses')
+                        <span class="badge" style="background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.15); color: #2563eb; white-space: nowrap;">Di Proses</span>
+                      @elseif ($req->status === 'pengajuan selesai')
+                        <span class="badge" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.15); color: #059669; white-space: nowrap;">Selesai</span>
+                      @else
+                        <span class="badge" style="background: rgba(100, 116, 139, 0.08); border: 1px solid rgba(100, 116, 139, 0.15); color: #475569; white-space: nowrap;">{{ $req->status }}</span>
                       @endif
                     </td>
                     <td style="font-size:.78rem; line-height:1.4;">

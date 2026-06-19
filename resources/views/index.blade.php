@@ -32,8 +32,8 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         Web PDPT
       </a>
-      <a href="#" class="main-nav-link">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <a href="/pdpt/buku-info-akademik" class="main-nav-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
         Panduan
       </a>
       <a href="/pdpt/tentang" class="main-nav-link">
@@ -42,12 +42,6 @@
       </a>
     </div>
 
-    <div class="main-nav-right">
-      <a href="/konversi-nilai/login" class="main-nav-login">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        Login
-      </a>
-    </div>
   </nav>
 
   <!-- ══════════════════════════════════════════════
@@ -170,7 +164,7 @@
       <div class="footer-col">
         <div class="footer-col-title">Bantuan & Tautan</div>
         <div class="footer-links">
-          <a href="#" class="footer-link">Panduan Pengguna</a>
+          <a href="/pdpt/buku-info-akademik" class="footer-link">Panduan Pengguna</a>
           <a href="/pdpt/tentang" class="footer-link">Tentang Portal</a>
           <a href="https://ugk.ac.id" target="_blank" class="footer-link">Website UGK ↗</a>
         </div>

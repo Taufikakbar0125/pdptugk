@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AkreditasiInstitusi;
 use App\Models\AkreditasiProdi;
-use App\Models\AkreditasiInternasional;
 use App\Models\Dosen;
 use App\Models\Tendik;
 use App\Models\BukuAkademik;
@@ -87,32 +86,6 @@ class FrontendController extends Controller
             ];
         });
         return view('pdpt.akreditasi-prodi', compact('data'));
-    }
-
-    public function akreditasiAsic()
-    {
-        $data = AkreditasiInternasional::where('jenis', 'ASIC')->orderBy('prodi')->get()->map(function($item) {
-            return [
-                'prodi' => $item->prodi,
-                'period' => $item->masa_berlaku ?? '-',
-                'akred' => $item->status ?? '-',
-                'tglAkred' => $item->tanggal_sk ? \Carbon\Carbon::parse($item->tanggal_sk)->format('d/m/Y') : '-'
-            ];
-        });
-        return view('pdpt.akreditasi-asic', compact('data'));
-    }
-
-    public function akreditasiAsiin()
-    {
-        $data = AkreditasiInternasional::where('jenis', 'ASIIN')->orderBy('prodi')->get()->map(function($item) {
-            return [
-                'prodi' => $item->prodi,
-                'period' => $item->masa_berlaku ?? '-',
-                'akred' => $item->status ?? '-',
-                'tglAkred' => $item->tanggal_sk ? \Carbon\Carbon::parse($item->tanggal_sk)->format('d/m/Y') : '-'
-            ];
-        });
-        return view('pdpt.akreditasi-asiin', compact('data'));
     }
 
     public function dataDosen()

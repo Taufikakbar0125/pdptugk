@@ -17,9 +17,6 @@ return new class extends Migration
         Schema::table('akreditasi_prodis', function (Blueprint $table) {
             $table->string('file_pdf')->nullable();
         });
-        Schema::table('akreditasi_internasionals', function (Blueprint $table) {
-            $table->string('file_pdf')->nullable();
-        });
     }
 
     /**
@@ -31,9 +28,6 @@ return new class extends Migration
             $table->dropColumn('file_pdf');
         });
         Schema::table('akreditasi_prodis', function (Blueprint $table) {
-            $table->dropColumn('file_pdf');
-        });
-        Schema::table('akreditasi_internasionals', function (Blueprint $table) {
             $table->dropColumn('file_pdf');
         });
     }

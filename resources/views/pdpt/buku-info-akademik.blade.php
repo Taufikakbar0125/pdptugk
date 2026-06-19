@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buku Informasi Akademik — PDPT UGK</title>
+  <title>Panduan — PDPT UGK</title>
   <meta name="description" content="Kumpulan buku informasi akademik Universitas Gunung Kidul per semester">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -195,13 +195,13 @@
   <div class="breadcrumb-bar">
     <div class="breadcrumb-left">
       <h1 class="breadcrumb-title">Data</h1>
-      <span class="breadcrumb-sub">Buku Informasi Akademik</span>
+      <span class="breadcrumb-sub">Panduan</span>
     </div>
     <div class="breadcrumb-nav">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <a href="/pdpt/home">Home</a>
       <span>›</span>
-      <span>Buku Informasi Akademik</span>
+      <span>Panduan</span>
     </div>
   </div>
 
@@ -217,7 +217,7 @@
         </svg>
       </div>
       <div class="bia-hero-text">
-        <h2>Buku Informasi Akademik</h2>
+        <h2>Panduan</h2>
         <p>Kumpulan buku panduan informasi akademik Universitas Gunung Kidul per semester. Dokumen berisi informasi kurikulum, kalender akademik, peraturan, dan panduan perkuliahan.</p>
         <div class="hero-stat">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
