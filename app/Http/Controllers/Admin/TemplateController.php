@@ -23,8 +23,8 @@ class TemplateController extends Controller
             case 'akreditasi-institusi':
                 return [
                     'filename' => 'template_akreditasi_institusi.xlsx',
-                    'headers' => ['peringkat', 'no_sk', 'tahun_sk', 'tanggal_kadaluarsa', 'status'],
-                    'example' => ['Unggul', '123/SK/BAN-PT/2026', '2026', '2031-06-18', 'Aktif'],
+                    'headers' => ['peringkat', 'no_sk', 'tanggal_akreditasi', 'tanggal_kadaluarsa', 'status'],
+                    'example' => ['Unggul', '123/SK/BAN-PT/2026', '2026-06-18', '2031-06-18', 'Aktif'],
                     'model' => AkreditasiInstitusi::class,
                     'query' => function() { return AkreditasiInstitusi::all(); }
                 ];
@@ -40,30 +40,30 @@ class TemplateController extends Controller
                 return [
                     'filename' => 'template_data_dosen.xlsx',
                     'headers' => [
-                        'kode_pt', 'nama_pt', 'nama', 'nuptk', 'nidn',
+                        'kode_pt', 'nama_pt', 'fakultas', 'prodi_jurusan', 'nama', 'nuptk', 'nidn',
                         'tempat_lahir', 'tanggal_lahir', 'nip', 'nik', 'tmmd',
                         'status_kepegawaian', 'ikatan_kerja', 'pendidikan_terakhir',
-                        'tahun_masuk', 'tahun_lulus', 'jabatan_awal', 'tmt_jabatan_awal',
+                        'tahun_masuk', 'tahun_lulus', 'golongan', 'pangkat', 'jabatan', 'jabatan_awal', 'tmt_jabatan_awal',
                         'jabatan_terakhir', 'tmt_jabatan_terakhir', 'pangkat_terakhir',
                         'tmt_pangkat_terakhir', 'masa_kerja_gol_tahun', 'masa_kerja_gol_bulan',
                         'jenis_sertifikasi', 'tahun_sertifikasi', 'nomor_sertifikasi',
                         'sk_sertifikasi', 'status_keaktifan'
                     ],
                     'display_headers' => [
-                        'Kode PT', 'Nama PT', 'Nama Dosen', 'NUPTK', 'NIDN',
+                        'Kode PT', 'Nama PT', 'Fakultas', 'Prodi/Jurusan', 'Nama Dosen', 'NUPTK', 'NIDN',
                         'Tempat Lahir', 'Tanggal Lahir', 'NIP', 'NIK', 'TMMD',
                         'Status Kepegawaian', 'Ikatan Kerja', 'Pendidikan Terakhir',
-                        'Tahun Masuk', 'Tahun Lulus', 'Jabatan Awal', 'TMT Jabatan Awal',
+                        'Tahun Masuk', 'Tahun Lulus', 'Golongan', 'Pangkat', 'Jabatan Fungsional', 'Jabatan Awal', 'TMT Jabatan Awal',
                         'Jabatan Terakhir', 'TMT Jabatan Terakhir', 'Pangkat Terakhir',
                         'TMT Pangkat Terakhir', 'Masa Kerja Gol Tahun', 'Masa Kerja Gol Bulan',
                         'Jenis Sertifikasi', 'Tahun Sertifikasi', 'Nomor Sertifikasi',
                         'SK Sertifikasi', 'Status Keaktifan'
                     ],
                     'example' => [
-                        '041XXX', 'Universitas Gunung Kidul', 'Dr. Taufik Akbar, M.Kom.', '1234567890123456', '0001018001',
+                        '041XXX', 'Universitas Gunung Kidul', 'Fakultas Teknik', 'Teknik Informatika', 'Dr. Taufik Akbar, M.Kom.', '1234567890123456', '0001018001',
                         'Yogyakarta', '1980-01-01', '198001012005011001', '3404010101800001', '2005-01-01',
                         'PNS', 'Tetap', 'S3',
-                        '2005', '2020', 'Asisten Ahli', '2005-01-01',
+                        '2005', '2020', 'III/b', 'Penata Muda Tk. I', 'Lektor', 'Asisten Ahli', '2005-01-01',
                         'Lektor Kepala', '2020-01-01', 'Pembina (IV/a)',
                         '2020-01-01', '15', '6',
                         'Serdos', '2015', 'SERDOS/2015/001',
@@ -152,7 +152,7 @@ class TemplateController extends Controller
                 'id' => 'akreditasi-institusi',
                 'name' => 'Akreditasi Institusi',
                 'description' => 'Data akreditasi tingkat universitas/institusi.',
-                'fields' => ['peringkat', 'no_sk', 'tahun_sk', 'tanggal_kadaluarsa', 'status']
+                'fields' => ['peringkat', 'no_sk', 'tanggal_akreditasi', 'tanggal_kadaluarsa', 'status']
             ],
             [
                 'id' => 'akreditasi-prodi',
@@ -165,10 +165,10 @@ class TemplateController extends Controller
                 'name' => 'Data Dosen',
                 'description' => 'Data dosen aktif Universitas Gunung Kidul.',
                 'fields' => [
-                    'kode_pt', 'nama_pt', 'nama', 'nuptk', 'nidn',
+                    'kode_pt', 'nama_pt', 'fakultas', 'prodi_jurusan', 'nama', 'nuptk', 'nidn',
                     'tempat_lahir', 'tanggal_lahir', 'nip', 'nik', 'tmmd',
                     'status_kepegawaian', 'ikatan_kerja', 'pendidikan_terakhir',
-                    'tahun_masuk', 'tahun_lulus', 'jabatan_awal', 'tmt_jabatan_awal',
+                    'tahun_masuk', 'tahun_lulus', 'golongan', 'pangkat', 'jabatan', 'jabatan_awal', 'tmt_jabatan_awal',
                     'jabatan_terakhir', 'tmt_jabatan_terakhir', 'pangkat_terakhir',
                     'tmt_pangkat_terakhir', 'masa_kerja_gol_tahun', 'masa_kerja_gol_bulan',
                     'jenis_sertifikasi', 'tahun_sertifikasi', 'nomor_sertifikasi',

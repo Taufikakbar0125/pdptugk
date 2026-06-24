@@ -42,26 +42,39 @@
 
     /* Mesh gradient background */
     body::before{
-      content:'';
-      position:fixed;
-      inset:0;
-      background:
-        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(37,99,235,.08), transparent 60%),
-        radial-gradient(ellipse 60% 50% at 90% 80%, rgba(124,58,237,.06), transparent 60%),
-        radial-gradient(ellipse 50% 40% at 50% 10%, rgba(16,185,129,.05), transparent 60%);
-      z-index:0;
+      content:''; position:fixed; inset:0; z-index:0;
+      background: radial-gradient(ellipse 80% 60% at 10% 20%, rgba(37,99,235,.08), transparent 60%),
+                  radial-gradient(ellipse 60% 50% at 90% 80%, rgba(124,58,237,.06), transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 50% 10%, rgba(16,185,129,.05), transparent 60%);
     }
 
     /* Subtle grid pattern */
     body::after{
-      content:'';
-      position:fixed;
-      inset:0;
-      background-image:
-        linear-gradient(rgba(37,99,235,.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(37,99,235,.02) 1px, transparent 1px);
+      content:''; position:fixed; inset:0; z-index:0;
+      background-image: linear-gradient(rgba(37,99,235,.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(37,99,235,.02) 1px, transparent 1px);
       background-size:32px 32px;
-      z-index:0;
+    }
+
+    /* Animated Background Elements */
+    .ilk-bg-wrapper {
+      position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; background: transparent;
+    }
+    .ilk-bg-wrapper canvas#ilk-rain { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+    .ilk-bg-wrapper .ilk-vignette {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(ellipse 85% 85% at 50% 50%, transparent 20%, rgba(255,255,255,.65) 65%, rgba(255,255,255,.94) 100%);
+    }
+    .ilk-bg-wrapper .ilk-scanline {
+      position: absolute; left: 0; right: 0; height: 2px; z-index: 3; pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,.05), rgba(0,0,0,.1), rgba(0,0,0,.05), transparent);
+      animation: ilkScan 7s linear infinite;
+    }
+    @keyframes ilkScan {
+      0%   { top: -2px; opacity: 0; }
+      4%   { opacity: 1; }
+      96%  { opacity: .5; }
+      100% { top: 100%; opacity: 0; }
     }
 
     /* Floating shapes */
@@ -361,9 +374,13 @@
 </head>
 <body>
 
-  <div class="shape shape-1"></div>
-  <div class="shape shape-2"></div>
-  <div class="shape shape-3"></div>
+  <!-- Animated Background Elements -->
+  <div class="ilk-bg-wrapper">
+      <canvas id="ilk-rain"></canvas>
+      <div class="ilk-vignette"></div>
+      <div class="ilk-geo"></div>
+      <div class="ilk-scanline"></div>
+  </div>
 
   <div class="page-container">
     <a href="/" class="back-link" id="backLink">
@@ -375,7 +392,7 @@
       <!-- Header -->
       <div class="card-header">
         <div class="logo-ring">
-          <img src="{{ asset('images/logo-ugk-dummy.svg') }}" alt="Logo UGK" class="logo-img">
+          <img src="{{ $global_site_logo }}" alt="Logo UGK" class="logo-img">
         </div>
         <div class="header-eyebrow">PDPT UGK</div>
         <h1 class="header-title">Validasi Data</h1>
@@ -493,6 +510,122 @@
         input.closest('.input-group').classList.remove('error');
       });
     });
+
+    // ── Matrix Rain Background (White) ──
+    (function initMatrixRain() {
+      var cv = document.getElementById('ilk-rain');
+      if(!cv) return;
+      var ctx = cv.getContext('2d');
+      var W, H, cols, drops, colData;
+
+      var KODE_PYTHON = ['import sys','def main():','print("Hello")','for i in range(10):','import numpy as np'];
+      var MATKUL = ['Pemrograman','Basis Data','Sistem Operasi','Struktur Data','Kecerdasan Buatan'];
+      var KODE_JAVA = ['public class Lab {','System.out.println();','Scanner sc = new Scanner(System.in);','int[] nilai = new int[40];'];
+      var IP_DATA = ['192.168.10.','10.0.0.','172.16.1.','192.168.1.'];
+      var HEX_CHARS = '0123456789ABCDEF';
+      var BIN_CHARS  = '01';
+      var ISTILAH = ['Algoritma','Rekursi','Pointer','Stack','Queue','Binary Tree','Hash Table','SQL Join'];
+      var ARABIC_IT = ['علم الحاسوب','البيانات','الشبكة','الخوارزمية','قاعدة البيانات','الأمن المعلوماتي','البرمجة'];
+
+      function randHex(n){var s='';for(var i=0;i<n;i++)s+=HEX_CHARS[Math.floor(Math.random()*16)];return s;}
+      function randBin(n){var s='';for(var i=0;i<n;i++)s+=BIN_CHARS[Math.floor(Math.random()*2)];return s;}
+      function randIP(){return IP_DATA[Math.floor(Math.random()*IP_DATA.length)]+Math.floor(Math.random()*254+1);}
+
+      var TYPES = ['hijau','merah','hitam'];
+      var cColors = {
+        hijau: {head:'#16a34a',body:'#22c55e', shadow:'rgba(34,197,94,'},
+        merah: {head:'#dc2626',body:'#ef4444', shadow:'rgba(239,68,68,'},
+        hitam: {head:'#1e293b',body:'#334155', shadow:'rgba(51,65,85,'}
+      };
+
+      function getChar(type){
+        switch(type){
+          case 'hijau':  return KODE_PYTHON[Math.floor(Math.random()*KODE_PYTHON.length)];
+          case 'merah':  return KODE_JAVA[Math.floor(Math.random()*KODE_JAVA.length)];
+          case 'hitam':  return '0x'+randHex(4+Math.floor(Math.random()*4));
+        }
+      }
+
+      var FS=12, LH=17;
+
+      function init(){
+        W = cv.width  = window.innerWidth;
+        H = cv.height = window.innerHeight;
+        cols    = Math.floor(W/(FS*9));
+        drops   = [];
+        colData = [];
+        for(var i=0;i<cols;i++){
+          var type=TYPES[Math.floor(Math.random()*TYPES.length)];
+          var band=W/cols;
+          drops.push(-(Math.random()*H/LH));
+          colData.push({
+            type:type, speed:.28+Math.random()*1.1,
+            text:[], maxLen:7+Math.floor(Math.random()*20),
+            x:i*band+Math.random()*(Math.max(band-FS*7,2)),
+            opacity:.15+Math.random()*.4,
+            size:FS*(.7+Math.random()*.55)
+          });
+        }
+      }
+
+      var resizeTimer;
+      window.addEventListener('resize',function(){
+        clearTimeout(resizeTimer);
+        resizeTimer=setTimeout(function(){init();},200);
+      });
+      init();
+
+      var frame=0;
+      function draw(){
+        frame++;
+        // White trailing fade effect
+        ctx.fillStyle='rgba(240,244,248,.1)';
+        ctx.fillRect(0,0,W,H);
+
+        for(var i=0;i<cols;i++){
+          var d=colData[i];
+          var cStyle = cColors[d.type];
+          ctx.font=d.size+'px "JetBrains Mono",monospace';
+          ctx.textAlign='left';
+
+          if(frame%Math.ceil(3.5/d.speed)===i%4){
+            d.text.push(getChar(d.type));
+            if(d.text.length>d.maxLen) d.text.shift();
+          }
+
+          var yCursor=drops[i]*LH;
+          for(var j=d.text.length-1;j>=0;j--){
+            var age=d.text.length-1-j;
+            var yPos=yCursor-age*LH;
+            if(yPos<-LH||yPos>H+LH) continue;
+            if(age===0){
+              ctx.shadowBlur=8; ctx.shadowColor=cStyle.shadow+'0.3)';
+              ctx.fillStyle=cStyle.head; ctx.globalAlpha=d.opacity;
+            } else {
+              var a=d.opacity*Math.pow(.80,age);
+              ctx.shadowBlur=age<3?3:0; ctx.shadowColor=cStyle.shadow+'0.1)';
+              ctx.fillStyle=cStyle.body; ctx.globalAlpha=Math.max(0,Math.min(1,a));
+            }
+            ctx.fillText(d.text[d.text.length-1-age],d.x,yPos);
+          }
+          ctx.globalAlpha=1; ctx.shadowBlur=0;
+
+          drops[i]+=d.speed;
+          if(drops[i]*LH>H+d.maxLen*LH){
+            drops[i]=-(Math.random()*22);
+            d.text=[];
+            d.type=TYPES[Math.floor(Math.random()*TYPES.length)];
+            d.speed=.28+Math.random()*1.1;
+            d.opacity=.15+Math.random()*.4;
+            d.size=FS*(.7+Math.random()*.55);
+            var band=W/cols;
+            d.x=i*band+Math.random()*(Math.max(band-FS*7,2));
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
   </script>
 </body>
 </html>

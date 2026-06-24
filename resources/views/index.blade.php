@@ -17,7 +17,7 @@
        ══════════════════════════════════════════════ -->
   <nav class="main-nav" id="mainNav">
     <a href="/" class="main-nav-brand">
-      <img src="{{ asset('images/logo-ugk-dummy.svg') }}" alt="Logo UGK">
+      <img src="{{ $global_site_logo }}" alt="Logo UGK">
       PDPT <span>UGK</span>
     </a>
 
@@ -143,7 +143,7 @@
   <footer class="main-footer">
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="{{ asset('images/logo-ugk-dummy.svg') }}" alt="Logo UGK" class="footer-brand-logo">
+        <img src="{{ $global_site_logo }}" alt="Logo UGK" class="footer-brand-logo">
         <div>
           <div class="footer-brand-name">PDPT UGK</div>
           <div class="footer-brand-org">Universitas Gunung Kidul</div>

@@ -19,51 +19,67 @@ body{
   justify-content:center;
 }
 
-/* --- Starfield Canvas --- */
-#starfield{
-  position:fixed;
-  inset:0;
-  width:100%;height:100%;
-  z-index:0;
-  pointer-events:none;
+/* --- Animated Background Elements (Matches lab.iainsasbabel.ac.id exactly) --- */
+.ilk-bg-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background: #010812;
 }
 
-/* --- Floating Orbs --- */
-.orb{
-  position:fixed;
-  border-radius:50%;
-  filter:blur(100px);
-  opacity:.35;
-  z-index:0;
-  pointer-events:none;
-  animation:orbFloat 18s ease-in-out infinite;
-}
-.orb-1{
-  width:420px;height:420px;
-  background:radial-gradient(circle,#1a6e4a 0%,transparent 70%);
-  top:-120px;right:-80px;
-  animation-delay:0s;
-}
-.orb-2{
-  width:340px;height:340px;
-  background:radial-gradient(circle,#0e5c3d 0%,transparent 70%);
-  bottom:-60px;left:-100px;
-  animation-delay:-6s;
-}
-.orb-3{
-  width:260px;height:260px;
-  background:radial-gradient(circle,#2a8a5c 0%,transparent 70%);
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  animation-delay:-12s;
+.ilk-bg-wrapper canvas#ilk-rain {
+  position: absolute;
+  inset: 0; width: 100%; height: 100%;
+  z-index: 0;
 }
 
-@keyframes orbFloat{
-  0%,100%{transform:translate(0,0) scale(1)}
-  25%{transform:translate(30px,-20px) scale(1.08)}
-  50%{transform:translate(-20px,30px) scale(.95)}
-  75%{transform:translate(-30px,-15px) scale(1.05)}
+.ilk-bg-wrapper .ilk-vignette {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 85% at 50% 50%, transparent 20%, rgba(1,8,20,.65) 65%, rgba(1,6,18,.94) 100%),
+    linear-gradient(180deg, rgba(1,6,18,.6) 0%, transparent 15%, transparent 85%, rgba(1,6,18,.75) 100%);
 }
+
+.ilk-bg-wrapper .ilk-geo {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .025;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(59,130,246,.7) 0, rgba(59,130,246,.7) 1px, transparent 0, transparent 50%),
+    repeating-linear-gradient(-45deg, rgba(59,130,246,.7) 0, rgba(59,130,246,.7) 1px, transparent 0, transparent 50%);
+  background-size: 28px 28px;
+}
+
+.ilk-bg-wrapper .ilk-scanline {
+  position: absolute; left: 0; right: 0; height: 2px; z-index: 3; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(26,100,255,.2), rgba(30,140,255,.4), rgba(26,100,255,.2), transparent);
+  animation: ilkScan 7s linear infinite;
+}
+
+@keyframes ilkScan {
+  0%   { top: -2px; opacity: 0; }
+  4%   { opacity: 1; }
+  96%  { opacity: .5; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.ilk-bg-wrapper .ilk-bracket {
+  position: absolute; width: 36px; height: 36px; z-index: 5; pointer-events: none;
+  animation: ilkFadeIn .5s ease 1.4s both;
+}
+.ilk-bg-wrapper .ilk-bracket::before,
+.ilk-bg-wrapper .ilk-bracket::after {
+  content: ''; position: absolute; background: rgba(96,165,250,.55);
+}
+.ilk-bg-wrapper .ilk-bracket::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+.ilk-bg-wrapper .ilk-bracket::after  { width: 1.5px; height: 100%; top: 0; left: 0; }
+.ilk-bg-wrapper .ilk-br-tl { top: 14px; left: 14px; }
+.ilk-bg-wrapper .ilk-br-tr { top: 14px; right: 14px; transform: scaleX(-1); }
+.ilk-bg-wrapper .ilk-br-bl { bottom: 40px; left: 14px; transform: scaleY(-1); }
+.ilk-bg-wrapper .ilk-br-br { bottom: 40px; right: 14px; transform: scale(-1); }
+
+@keyframes ilkFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* --- Login Container --- */
 .login-container{

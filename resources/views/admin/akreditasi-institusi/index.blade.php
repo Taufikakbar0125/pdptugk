@@ -21,7 +21,7 @@
                 <tr style="background: #f1f5f9; border-bottom: 1px solid #e2e8f0;">
                     <th style="padding: 12px 20px; font-weight: 600; color: #475569; font-size: 0.875rem;">No SK</th>
                     <th style="padding: 12px 20px; font-weight: 600; color: #475569; font-size: 0.875rem;">Peringkat</th>
-                    <th style="padding: 12px 20px; font-weight: 600; color: #475569; font-size: 0.875rem;">Tahun SK</th>
+                    <th style="padding: 12px 20px; font-weight: 600; color: #475569; font-size: 0.875rem;">Tanggal Akreditasi</th>
                     <th style="padding: 12px 20px; font-weight: 600; color: #475569; font-size: 0.875rem;">Kadaluarsa</th>
                     <th style="padding: 12px 20px; font-weight: 600; color: #475569; font-size: 0.875rem;">Status</th>
                     <th style="padding: 12px 20px; font-weight: 600; color: #475569; font-size: 0.875rem; text-align: right;">Aksi</th>
@@ -34,7 +34,7 @@
                     <td style="padding: 12px 20px; font-size: 0.875rem;">
                         <span style="background: #dbeafe; color: #1e40af; padding: 2px 8px; border-radius: 4px; font-weight: 600;">{{ $item->peringkat }}</span>
                     </td>
-                    <td style="padding: 12px 20px; font-size: 0.875rem;">{{ $item->tahun_sk }}</td>
+                    <td style="padding: 12px 20px; font-size: 0.875rem;">{{ $item->tanggal_akreditasi ? \Carbon\Carbon::parse($item->tanggal_akreditasi)->format('d/m/Y') : '-' }}</td>
                     <td style="padding: 12px 20px; font-size: 0.875rem;">{{ \Carbon\Carbon::parse($item->tanggal_kadaluarsa)->format('d/m/Y') }}</td>
                     <td style="padding: 12px 20px; font-size: 0.875rem;">{{ $item->status }}</td>
                     <td style="padding: 12px 20px; text-align: right;">

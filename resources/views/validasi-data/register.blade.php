@@ -202,7 +202,7 @@
       <!-- Header -->
       <div class="card-header">
         <div class="logo-ring">
-          <img src="{{ asset('images/logo-ugk-dummy.svg') }}" alt="Logo UGK" class="logo-img">
+          <img src="{{ $global_site_logo }}" alt="Logo UGK" class="logo-img">
         </div>
         <div class="header-eyebrow">PDPT UGK</div>
         <h1 class="header-title">Pendaftaran Akun</h1>

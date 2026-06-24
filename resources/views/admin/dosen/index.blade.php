@@ -22,6 +22,8 @@
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem; position: sticky; left: 0; background: #f1f5f9; z-index: 1;">No</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Kode PT</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Nama PT</th>
+                    <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Fakultas</th>
+                    <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Prodi/Jurusan</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Nama Dosen</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">NUPTK</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">NIDN</th>
@@ -35,6 +37,9 @@
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Pendidikan Terakhir</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Tahun Masuk</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Tahun Lulus</th>
+                    <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Golongan</th>
+                    <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Pangkat</th>
+                    <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Jabatan Fungsional</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Jabatan Awal</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">TMT Jabatan Awal</th>
                     <th style="padding: 12px 16px; font-weight: 600; color: #475569; font-size: 0.8rem;">Jabatan Terakhir</th>
@@ -57,6 +62,8 @@
                     <td style="padding: 10px 16px; font-size: 0.8rem; position: sticky; left: 0; background: #fff; z-index: 1;">{{ $index + 1 }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->kode_pt ?? '-' }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->nama_pt ?? '-' }}</td>
+                    <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->fakultas ?? '-' }}</td>
+                    <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->prodi_jurusan ?? '-' }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem; font-weight: 600; color: #0f172a;">{{ $item->nama }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->nuptk ?? '-' }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->nidn ?? '-' }}</td>
@@ -72,6 +79,9 @@
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->pendidikan_terakhir ?? '-' }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->tahun_masuk ?? '-' }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->tahun_lulus ?? '-' }}</td>
+                    <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->golongan ?? '-' }}</td>
+                    <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->pangkat ?? '-' }}</td>
+                    <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->jabatan ?? '-' }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->jabatan_awal ?? '-' }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->tmt_jabatan_awal ? \Carbon\Carbon::parse($item->tmt_jabatan_awal)->format('d-m-Y') : '-' }}</td>
                     <td style="padding: 10px 16px; font-size: 0.8rem;">{{ $item->jabatan_terakhir ?? '-' }}</td>
@@ -106,7 +116,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="30" style="padding: 20px; text-align: center; color: #64748b; font-size: 0.875rem;">Belum ada data dosen.</td>
+                    <td colspan="35" style="padding: 20px; text-align: center; color: #64748b; font-size: 0.875rem;">Belum ada data dosen.</td>
                 </tr>
                 @endforelse
             </tbody>

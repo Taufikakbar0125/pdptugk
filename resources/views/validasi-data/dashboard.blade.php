@@ -363,7 +363,7 @@
   <header class="navbar">
     <div class="nav-container">
       <a href="/" class="brand">
-        <img src="{{ asset('images/logo-ugk-dummy.svg') }}" alt="Logo UGK" class="brand-logo">
+        <img src="{{ $global_site_logo }}" alt="Logo UGK" class="brand-logo">
         <span class="brand-title">PDPT <span>UGK</span></span>
       </a>
       <div class="user-menu">

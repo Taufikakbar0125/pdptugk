@@ -86,9 +86,7 @@
               <th>Prodi/Jurusan</th>
               <th>Nama</th>
               <th>Pendidikan</th>
-              <th>Golongan</th>
-              <th>Pangkat</th>
-              <th>Jabatan</th>
+              <th>Jabatan Fungsional</th>
               <th>Status</th>
             </tr>
           </thead>

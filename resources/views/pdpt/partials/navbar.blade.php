@@ -15,7 +15,7 @@
 
 <nav class="navbar" id="navbar">
   <a href="/" class="nav-brand" id="navBrand">
-    <img src="{{ asset('images/logo-ugk-dummy.svg') }}" alt="Logo UGK" class="nav-brand-logo">
+    <img src="{{ $global_site_logo }}" alt="Logo UGK" class="nav-brand-logo">
     PDPT <span>UGK</span>
   </a>
 

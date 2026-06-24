@@ -375,24 +375,29 @@ function initDataDosen() {
     dosenPaginator = createPaginator({
         allData: DOSEN_DATA,
         tbodyId: 'dosenTableBody', countId: 'dosenCount', infoId: 'dosenPagInfo', pagId: 'dosenPagination',
-        pagFnName: 'goToDosenPage', cols: 9, perPage: 15,
-        rowFn: (r, i) => `<tr>
+        pagFnName: 'goToDosenPage', cols: 7, perPage: 15,
+        rowFn: (r, i) => {
+            const fak = r.fakultas || r.fak || '-';
+            const prodi = r.prodi_jurusan || r.prodi || '-';
+            const pend = r.pendidikan_terakhir || r.pendidikan || '-';
+            const jab = r.jabatan || '-';
+            const stat = r.status_kepegawaian || r.status || '-';
+            return `<tr>
             <td class="row-num">${i+1}</td>
-            <td><span class="fak-badge">${r.fak}</span></td>
-            <td class="prodi-name" style="font-weight:500;font-size:.8rem">${r.prodi}</td>
+            <td><span class="fak-badge">${fak}</span></td>
+            <td class="prodi-name" style="font-weight:500;font-size:.8rem">${prodi}</td>
             <td class="prodi-name">${r.nama}</td>
-            <td><span class="fak-badge">${r.pendidikan}</span></td>
-            <td class="date-cell">${r.gol}</td>
-            <td style="font-size:.78rem">${r.pangkat}</td>
-            <td style="font-size:.78rem">${r.jabatan}</td>
-            <td><span class="akred-badge ${r.status==='PNS'?'a':'proses'}">${r.status}</span></td>
-        </tr>`
+            <td><span class="fak-badge">${pend}</span></td>
+            <td style="font-size:.78rem">${jab}</td>
+            <td><span class="akred-badge ${stat==='PNS'?'a':'proses'}">${stat}</span></td>
+        </tr>`;
+        }
     });
 
     // Populate fakultas filter
     const fakFilter = document.getElementById('filterDosenFak');
     if (fakFilter) {
-        [...new Set(DOSEN_DATA.map(r => r.fak))].sort().forEach(f => {
+        [...new Set(DOSEN_DATA.map(r => r.fakultas || r.fak))].filter(Boolean).sort().forEach(f => {
             const o = document.createElement('option'); o.value = f; o.textContent = f; fakFilter.appendChild(o);
         });
     }
@@ -405,7 +410,8 @@ window.applyDosenFilter = function() {
     const fak = (document.getElementById('filterDosenFak') || {}).value || '';
     const nama = (document.getElementById('filterDosenNama') || {}).value || '';
     const filtered = DOSEN_DATA.filter(r => {
-        if (fak && r.fak !== fak) return false;
+        const f = r.fakultas || r.fak;
+        if (fak && f !== fak) return false;
         if (nama && !r.nama.toLowerCase().includes(nama.toLowerCase())) return false;
         return true;
     });

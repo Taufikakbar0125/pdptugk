@@ -37,6 +37,17 @@
                 </div>
             </div>
 
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem;">Fakultas</label>
+                    <input type="text" name="fakultas" value="{{ old('fakultas', $dosen->fakultas) }}" placeholder="Contoh: Fakultas Teknik" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem;">Prodi/Jurusan</label>
+                    <input type="text" name="prodi_jurusan" value="{{ old('prodi_jurusan', $dosen->prodi_jurusan) }}" placeholder="Contoh: Teknik Informatika" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+            </div>
+
             {{-- Informasi Pribadi --}}
             <h3 style="font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0;">Informasi Pribadi</h3>
 
@@ -146,7 +157,24 @@
             </div>
 
             {{-- Jabatan & Pangkat --}}
-            <h3 style="font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0;">Jabatan & Pangkat</h3>
+            <h3 style="font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0;">Jabatan & Pangkat Saat Ini</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem;">Golongan</label>
+                    <input type="text" name="golongan" value="{{ old('golongan', $dosen->golongan) }}" placeholder="Contoh: III/b" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem;">Pangkat</label>
+                    <input type="text" name="pangkat" value="{{ old('pangkat', $dosen->pangkat) }}" placeholder="Contoh: Penata Muda Tk. I" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem;">Jabatan Fungsional</label>
+                    <input type="text" name="jabatan" value="{{ old('jabatan', $dosen->jabatan) }}" placeholder="Contoh: Lektor" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+            </div>
+
+            <h3 style="font-size: 1rem; font-weight: 600; color: #0f172a; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; margin-top: 24px;">Riwayat Jabatan & Pangkat</h3>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
                 <div>

@@ -64,7 +64,7 @@
           </div>
           <div class="institusi-detail-row">
             <span class="institusi-detail-label">Tanggal Akreditasi</span>
-            <span class="institusi-detail-value">{{ \Carbon\Carbon::parse($current->tanggal_sk)->format('d F Y') }}</span>
+            <span class="institusi-detail-value">{{ $current->tanggal_akreditasi ? \Carbon\Carbon::parse($current->tanggal_akreditasi)->format('d F Y') : '-' }}</span>
           </div>
           <div class="institusi-detail-row">
             <span class="institusi-detail-label">Masa Berlaku Sampai</span>
@@ -113,12 +113,7 @@
             <span class="institusi-detail-label">Dalam Proses</span>
             <span class="akred-badge proses">{{ $prodiStats['proses'] }} Prodi</span>
           </div>
-          <div class="institusi-detail-row">
-            <span class="institusi-detail-label">% Unggul/A</span>
-            <span class="institusi-detail-value" style="color:#059669;font-weight:800">
-                {{ $prodiStats['total'] > 0 ? number_format((($prodiStats['unggul'] + $prodiStats['a']) / $prodiStats['total']) * 100, 1) : 0 }}%
-            </span>
-          </div>
+
         </div>
       </div>
     </div>
@@ -143,7 +138,7 @@
               <th>#</th>
               <th>Peringkat</th>
               <th>No SK</th>
-              <th>Tahun SK</th>
+              <th>Tanggal Akreditasi</th>
               <th>Kadaluarsa</th>
               <th>Status</th>
               <th>Sertifikat</th>
@@ -155,7 +150,7 @@
               <td>{{ $index + 1 }}</td>
               <td><span class="akred-badge {{ strtolower(str_replace(' ', '', $item->peringkat)) }}">{{ $item->peringkat }}</span></td>
               <td style="font-size: 0.8rem">{{ $item->no_sk }}</td>
-              <td>{{ $item->tahun_sk }}</td>
+              <td>{{ $item->tanggal_akreditasi ? \Carbon\Carbon::parse($item->tanggal_akreditasi)->format('d M Y') : '-' }}</td>
               <td>{{ \Carbon\Carbon::parse($item->tanggal_kadaluarsa)->format('d M Y') }}</td>
               <td><span class="akred-badge {{ $item->status == 'Aktif' ? 'unggul' : 'proses' }}">{{ $item->status }}</span></td>
               <td>

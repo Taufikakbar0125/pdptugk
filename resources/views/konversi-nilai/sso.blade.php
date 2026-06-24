@@ -7,15 +7,37 @@
   <meta name="description" content="Halaman login SSO mahasiswa untuk sistem konversi nilai PDPT Universitas Gunung Kidul">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/konversi-nilai-sso.css') }}">
 </head>
 <body>
-  <!-- Animated mesh background -->
-  <div class="mesh-bg">
-    <div class="mesh-blob mesh-blob-1"></div>
-    <div class="mesh-blob mesh-blob-2"></div>
-    <div class="mesh-blob mesh-blob-3"></div>
+  <!-- Animated Background Elements (Matches lab.iainsasbabel.ac.id exactly) -->
+  <div class="ilk-bg-wrapper">
+      <canvas id="ilk-rain"></canvas>
+      <div class="ilk-vignette"></div>
+      <div class="ilk-geo"></div>
+      <div class="ilk-scanline"></div>
+      <div class="ilk-bracket ilk-br-tl"></div>
+      <div class="ilk-bracket ilk-br-tr"></div>
+      <div class="ilk-bracket ilk-br-bl"></div>
+      <div class="ilk-bracket ilk-br-br"></div>
+  </div>
+
+  <!-- Scrolling Status Bar -->
+  <div class="status-bar-bg">
+    <div class="status-scroll">
+      <div class="status-item"><div class="status-dot"></div>SISTEM INFORMASI TERINTEGRASI</div>
+      <div class="status-item cy"><div class="status-dot"></div>UPTIME: 99.9%</div>
+      <div class="status-item gd"><div class="status-dot"></div>SECURE CONNECTION SSO UGK</div>
+      <div class="status-item"><div class="status-dot"></div>SISTEM KONVERSI NILAI MAHASISWA</div>
+      <div class="status-item cy"><div class="status-dot"></div>SERVER RESPONSIVE</div>
+      <!-- Duplicate for infinite scroll effect -->
+      <div class="status-item"><div class="status-dot"></div>SISTEM INFORMASI TERINTEGRASI</div>
+      <div class="status-item cy"><div class="status-dot"></div>UPTIME: 99.9%</div>
+      <div class="status-item gd"><div class="status-dot"></div>SECURE CONNECTION SSO UGK</div>
+      <div class="status-item"><div class="status-dot"></div>SISTEM KONVERSI NILAI MAHASISWA</div>
+      <div class="status-item cy"><div class="status-dot"></div>SERVER RESPONSIVE</div>
+    </div>
   </div>
 
   <div class="sso-page">
@@ -90,7 +112,7 @@
           <div class="form-header-row">
             <div class="form-logo">
               {{-- Logo dari database, sementara dummy --}}
-              <img src="{{ asset('images/logo-ugk-dummy.svg') }}" alt="Logo UGK" data-db-key="logo_sso">
+              <img src="{{ $global_site_logo }}" alt="Logo UGK" data-db-key="logo_sso">
             </div>
             <h2 class="form-title">Login SSO</h2>
           </div>

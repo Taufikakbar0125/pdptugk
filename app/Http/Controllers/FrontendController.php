@@ -61,7 +61,7 @@ class FrontendController extends Controller
 
     public function akreditasiInstitusi()
     {
-        $data = AkreditasiInstitusi::orderBy('tahun_sk', 'desc')->get();
+        $data = AkreditasiInstitusi::orderBy('tanggal_akreditasi', 'desc')->get();
         $prodiStats = [
             'total' => AkreditasiProdi::count(),
             'unggul' => AkreditasiProdi::where('peringkat', 'Unggul')->count(),
@@ -79,9 +79,9 @@ class FrontendController extends Controller
                 'fak' => $item->fakultas,
                 'prodi' => $item->prodi,
                 'akred' => $item->peringkat,
-                'thn' => $item->tahun_sk,
-                'noSert' => $item->no_sk ?? '-',
-                'tglAkred' => $item->tanggal_sk ? \Carbon\Carbon::parse($item->tanggal_sk)->format('Y-m-d') : '-',
+                'thn' => $item->tanggal_akreditasi ? \Carbon\Carbon::parse($item->tanggal_akreditasi)->format('Y') : '-',
+                'noSert' => $item->no_sertifikat ?? '-',
+                'tglAkred' => $item->tanggal_akreditasi ? \Carbon\Carbon::parse($item->tanggal_akreditasi)->format('Y-m-d') : '-',
                 'expired' => $item->tanggal_kadaluarsa ? \Carbon\Carbon::parse($item->tanggal_kadaluarsa)->format('Y-m-d') : '-',
             ];
         });
@@ -107,7 +107,7 @@ class FrontendController extends Controller
 
             return [
                 'fak' => $item->fakultas ?? '-',
-                'prodi' => $item->prodi ?? '-',
+                'prodi' => $item->prodi_jurusan ?? '-',
                 'nama' => $item->nama,
                 'pendidikan' => $item->pendidikan_terakhir ?? '-',
                 'gol' => $gol ?? '-',

@@ -38,58 +38,118 @@ body{
   justify-content:center;
 }
 
-/* --- Animated Mesh Background --- */
-.mesh-bg{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  overflow:hidden;
-  pointer-events:none;
+/* --- Animated Background Elements (Matches lab.iainsasbabel.ac.id exactly) --- */
+.ilk-bg-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background: #010812;
 }
 
-.mesh-blob{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(120px);
-  opacity:.4;
-  animation:blobMove 20s ease-in-out infinite;
+.ilk-bg-wrapper canvas#ilk-rain {
+  position: absolute;
+  inset: 0; width: 100%; height: 100%;
+  z-index: 0;
 }
 
-.mesh-blob-1{
-  width:500px;height:500px;
-  background:radial-gradient(circle,#6366f1,transparent 70%);
-  top:-15%;right:-10%;
-  animation-delay:0s;
-}
-.mesh-blob-2{
-  width:400px;height:400px;
-  background:radial-gradient(circle,#8b5cf6,transparent 70%);
-  bottom:-10%;left:-8%;
-  animation-delay:-7s;
-}
-.mesh-blob-3{
-  width:350px;height:350px;
-  background:radial-gradient(circle,#3b82f6,transparent 70%);
-  top:40%;left:55%;
-  animation-delay:-14s;
+.ilk-bg-wrapper .ilk-vignette {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 85% at 50% 50%, transparent 20%, rgba(1,8,20,.65) 65%, rgba(1,6,18,.94) 100%),
+    linear-gradient(180deg, rgba(1,6,18,.6) 0%, transparent 15%, transparent 85%, rgba(1,6,18,.75) 100%);
 }
 
-@keyframes blobMove{
-  0%,100%{transform:translate(0,0) scale(1)}
-  25%{transform:translate(40px,-30px) scale(1.1)}
-  50%{transform:translate(-30px,40px) scale(.92)}
-  75%{transform:translate(-40px,-20px) scale(1.06)}
-}
-
-/* Fine grid overlay */
-.mesh-bg::after{
-  content:'';
-  position:absolute;
-  inset:0;
+.ilk-bg-wrapper .ilk-geo {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .025;
   background-image:
-    linear-gradient(rgba(148,163,184,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(148,163,184,.04) 1px,transparent 1px);
-  background-size:60px 60px;
+    repeating-linear-gradient(45deg, rgba(59,130,246,.7) 0, rgba(59,130,246,.7) 1px, transparent 0, transparent 50%),
+    repeating-linear-gradient(-45deg, rgba(59,130,246,.7) 0, rgba(59,130,246,.7) 1px, transparent 0, transparent 50%);
+  background-size: 28px 28px;
+}
+
+.ilk-bg-wrapper .ilk-scanline {
+  position: absolute; left: 0; right: 0; height: 2px; z-index: 3; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(26,100,255,.2), rgba(30,140,255,.4), rgba(26,100,255,.2), transparent);
+  animation: ilkScan 7s linear infinite;
+}
+
+@keyframes ilkScan {
+  0%   { top: -2px; opacity: 0; }
+  4%   { opacity: 1; }
+  96%  { opacity: .5; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.ilk-bg-wrapper .ilk-bracket {
+  position: absolute; width: 36px; height: 36px; z-index: 5; pointer-events: none;
+  animation: ilkFadeIn .5s ease 1.4s both;
+}
+.ilk-bg-wrapper .ilk-bracket::before,
+.ilk-bg-wrapper .ilk-bracket::after {
+  content: ''; position: absolute; background: rgba(96,165,250,.55);
+}
+.ilk-bg-wrapper .ilk-bracket::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+.ilk-bg-wrapper .ilk-bracket::after  { width: 1.5px; height: 100%; top: 0; left: 0; }
+.ilk-bg-wrapper .ilk-br-tl { top: 14px; left: 14px; }
+.ilk-bg-wrapper .ilk-br-tr { top: 14px; right: 14px; transform: scaleX(-1); }
+.ilk-bg-wrapper .ilk-br-bl { bottom: 40px; left: 14px; transform: scaleY(-1); }
+.ilk-bg-wrapper .ilk-br-br { bottom: 40px; right: 14px; transform: scale(-1); }
+
+@keyframes ilkFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- Status Bar Scrolling Text --- */
+.status-bar-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: rgba(15, 23, 42, 0.9);
+  border-top: 1px solid rgba(99, 102, 241, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.status-scroll {
+  display: flex;
+  gap: 0;
+  animation: statusScroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+.status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  font-family: 'Inter', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  border-right: 1px solid rgba(99, 102, 241, 0.15);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.status-item .status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.status-item.cy { color: var(--accent-light); }
+.status-item.gd { color: var(--success); }
+
+@keyframes statusScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* --- Page Layout --- */

@@ -141,6 +141,10 @@ Route::prefix('admin')->group(function () {
         Route::get('template/export/{category}', [\App\Http\Controllers\Admin\TemplateController::class, 'exportData'])->name('admin.template.export');
         Route::post('template/import/{category}', [\App\Http\Controllers\Admin\TemplateController::class, 'import'])->name('admin.template.import');
 
+        // Pengaturan Web
+        Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('admin.settings.index');
+        Route::post('settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('admin.settings.update');
+
         // Google Drive push & auth
         Route::post('pengajuan-validasi/{id}/push-gdrive', [PengajuanValidasiController::class, 'pushToGDrive'])->name('admin.pengajuan-validasi.push-gdrive');
         Route::get('google/auth', [\App\Http\Controllers\Admin\GoogleAuthController::class, 'redirect'])->name('admin.google.auth');

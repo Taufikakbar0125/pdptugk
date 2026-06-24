@@ -10,7 +10,7 @@ class AkreditasiInstitusiController extends Controller
 {
     public function index()
     {
-        $data = AkreditasiInstitusi::orderBy('tahun_sk', 'desc')->get();
+        $data = AkreditasiInstitusi::orderBy('tanggal_akreditasi', 'desc')->get();
         return view('admin.akreditasi-institusi.index', compact('data'));
     }
 
@@ -24,7 +24,7 @@ class AkreditasiInstitusiController extends Controller
         $validated = $request->validate([
             'peringkat' => 'required|string',
             'no_sk' => 'required|string',
-            'tahun_sk' => 'required|string',
+            'tanggal_akreditasi' => 'required|date',
             'tanggal_kadaluarsa' => 'required|date',
             'status' => 'required|string',
             'file_pdf' => 'nullable|file|mimes:pdf|max:10240',
@@ -48,7 +48,7 @@ class AkreditasiInstitusiController extends Controller
         $validated = $request->validate([
             'peringkat' => 'required|string',
             'no_sk' => 'required|string',
-            'tahun_sk' => 'required|string',
+            'tanggal_akreditasi' => 'required|date',
             'tanggal_kadaluarsa' => 'required|date',
             'status' => 'required|string',
             'file_pdf' => 'nullable|file|mimes:pdf|max:10240',

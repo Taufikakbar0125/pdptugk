@@ -7,16 +7,21 @@
   <meta name="description" content="Halaman login sistem konversi nilai PDPT Universitas Gunung Kidul">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/konversi-nilai-login.css') }}">
 </head>
 <body>
-  <canvas id="starfield"></canvas>
-
-  <!-- Floating orbs background -->
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
+  <!-- Animated Background Elements (Matches lab.iainsasbabel.ac.id exactly) -->
+  <div class="ilk-bg-wrapper">
+      <canvas id="ilk-rain"></canvas>
+      <div class="ilk-vignette"></div>
+      <div class="ilk-geo"></div>
+      <div class="ilk-scanline"></div>
+      <div class="ilk-bracket ilk-br-tl"></div>
+      <div class="ilk-bracket ilk-br-tr"></div>
+      <div class="ilk-bracket ilk-br-bl"></div>
+      <div class="ilk-bracket ilk-br-br"></div>
+  </div>
 
   <div class="login-container">
     <!-- Back button -->
@@ -33,7 +38,7 @@
       <div class="card-header">
         <div class="logo-ring">
           {{-- Logo akan dipanggil dari database nanti, untuk sementara dummy --}}
-          <img src="{{ asset('images/logo-ugk-dummy.svg') }}" alt="Logo UGK" class="logo-img" data-db-key="logo_konversi_nilai">
+          <img src="{{ $global_site_logo }}" alt="Logo UGK" class="logo-img" data-db-key="logo_konversi_nilai">
         </div>
         <div class="brand-text">
           <span class="brand-eyebrow">PDPT UGK</span>

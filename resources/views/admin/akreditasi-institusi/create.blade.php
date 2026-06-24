@@ -41,8 +41,8 @@
             </div>
 
             <div style="margin-bottom: 16px;">
-                <label style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem;">Tahun SK</label>
-                <input type="number" name="tahun_sk" value="{{ old('tahun_sk') }}" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.875rem;">Tanggal Akreditasi</label>
+                <input type="date" name="tanggal_akreditasi" value="{{ old('tanggal_akreditasi') }}" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
             </div>
 
             <div style="margin-bottom: 16px;">
