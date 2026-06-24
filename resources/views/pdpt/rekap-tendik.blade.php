@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rekapitulasi Tenaga Kependidikan — PDPT UGK</title>
+  <link rel="icon" href="{{ $global_site_logo ?? asset('images/logo-ugk-dummy.svg') }}" />
   <meta name="description" content="Rekapitulasi data tenaga kependidikan Universitas Gunung Kidul berdasarkan status kepegawaian">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

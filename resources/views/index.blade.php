@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PDPT UGK — Universitas Gunung Kidul</title>
+  <link rel="icon" href="{{ $global_site_logo ?? asset('images/logo-ugk-dummy.svg') }}" />
   <meta name="description" content="Portal Pangkalan Data Perguruan Tinggi Universitas Gunung Kidul. Layanan akademik terpadu untuk sivitas akademika UGK.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

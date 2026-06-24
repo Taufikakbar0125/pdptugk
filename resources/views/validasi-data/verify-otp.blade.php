@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Verifikasi Kode OTP — Validasi Data · PDPT UGK</title>
+  <link rel="icon" href="{{ $global_site_logo ?? asset('images/logo-ugk-dummy.svg') }}" />
   <meta name="description" content="Masukkan kode OTP yang dikirim ke email Anda untuk menyelesaikan pendaftaran akun mahasiswa PDPT UGK">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daftar Akun Mahasiswa — Validasi Data · PDPT UGK</title>
+  <link rel="icon" href="{{ $global_site_logo ?? asset('images/logo-ugk-dummy.svg') }}" />
   <meta name="description" content="Pendaftaran akun mahasiswa untuk validasi data akademik PDPT Universitas Gunung Kidul">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
