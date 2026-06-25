@@ -77,6 +77,7 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
 });
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\KomitmenMahasiswaController;
 
 Route::get('/pdpt/home', [FrontendController::class, 'pdptHome']);
 Route::get('/pdpt/akreditasi-institusi', [FrontendController::class, 'akreditasiInstitusi']);
@@ -88,6 +89,10 @@ Route::get('/pdpt/rekap-tendik', [FrontendController::class, 'rekapTendik']);
 Route::get('/pdpt/buku-info-akademik', [FrontendController::class, 'bukuInfoAkademik']);
 Route::get('/pdpt/tentang', [FrontendController::class, 'tentang']);
 
+// ── Komitmen Mahasiswa (Public) ────────────────────────
+Route::get('/komitmen-mahasiswa', [KomitmenMahasiswaController::class, 'showForm'])->name('komitmen-mahasiswa.form');
+Route::post('/komitmen-mahasiswa', [KomitmenMahasiswaController::class, 'store'])->name('komitmen-mahasiswa.store');
+
 // ============================================
 // ADMIN ROUTES
 // ============================================
@@ -97,6 +102,7 @@ use App\Http\Controllers\Admin\AkreditasiInstitusiController;
 use App\Http\Controllers\Admin\AkreditasiProdiController;
 use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\Admin\TendikController;
+use App\Http\Controllers\Admin\KomitmenMahasiswaAdminController;
 
 Route::prefix('admin')->group(function () {
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('admin.login');
@@ -135,6 +141,12 @@ Route::prefix('admin')->group(function () {
         Route::resource('jenis-masalah', JenisMasalahController::class, ['as' => 'admin'])->except(['create', 'edit', 'show']);
         Route::resource('pengajuan-validasi', PengajuanValidasiController::class, ['as' => 'admin'])->only(['index', 'show', 'update']);
 
+        // Komitmen Mahasiswa (Admin)
+        Route::get('komitmen-mahasiswa', [KomitmenMahasiswaAdminController::class, 'index'])->name('admin.komitmen-mahasiswa.index');
+        Route::get('komitmen-mahasiswa/{id}', [KomitmenMahasiswaAdminController::class, 'show'])->name('admin.komitmen-mahasiswa.show');
+        Route::put('komitmen-mahasiswa/{id}', [KomitmenMahasiswaAdminController::class, 'update'])->name('admin.komitmen-mahasiswa.update');
+        Route::post('komitmen-mahasiswa/{id}/push-gdrive', [KomitmenMahasiswaAdminController::class, 'pushToGDrive'])->name('admin.komitmen-mahasiswa.push-gdrive');
+
         // Template & Export routes
         Route::get('template', [\App\Http\Controllers\Admin\TemplateController::class, 'index'])->name('admin.template.index');
         Route::get('template/download/{category}', [\App\Http\Controllers\Admin\TemplateController::class, 'downloadTemplate'])->name('admin.template.download');
@@ -151,5 +163,6 @@ Route::prefix('admin')->group(function () {
         Route::post('google/disconnect', [\App\Http\Controllers\Admin\GoogleAuthController::class, 'disconnect'])->name('admin.google.disconnect');
     });
 });
+
 
 
