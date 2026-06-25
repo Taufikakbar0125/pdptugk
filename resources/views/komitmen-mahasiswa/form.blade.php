@@ -7,17 +7,17 @@
     <link rel="icon" href="{{ $global_site_logo ?? asset('images/logo-ugk-dummy.svg') }}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --surface: #ffffff;
-            --background: #f8fafc;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --input-bg: #f1f5f9;
+            --primary: #4ad980;
+            --primary-dark: #2ecc71;
+            --surface: rgba(12, 24, 20, 0.55);
+            --background: transparent;
+            --text-main: #ffffff;
+            --text-muted: rgba(160,240,190,0.6);
+            --border: rgba(74,217,128,0.12);
+            --input-bg: rgba(10,30,22,0.6);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,25 +28,82 @@
             color: var(--text-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            position: relative;
         }
+
+        /* ── Animated Background ───────────────── */
+        .ilk-bg-wrapper {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: #010812;
+        }
+
+        .ilk-bg-wrapper canvas#ilk-rain {
+            position: absolute;
+            inset: 0; width: 100%; height: 100%;
+            z-index: 0;
+        }
+
+        .ilk-bg-wrapper .ilk-vignette {
+            position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            background:
+                radial-gradient(ellipse 85% 85% at 50% 50%, transparent 20%, rgba(1,8,20,.65) 65%, rgba(1,6,18,.94) 100%),
+                linear-gradient(180deg, rgba(1,6,18,.6) 0%, transparent 15%, transparent 85%, rgba(1,6,18,.75) 100%);
+        }
+
+        .ilk-bg-wrapper .ilk-geo {
+            position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: .025;
+            background-image:
+                repeating-linear-gradient(45deg, rgba(59,130,246,.7) 0, rgba(59,130,246,.7) 1px, transparent 0, transparent 50%),
+                repeating-linear-gradient(-45deg, rgba(59,130,246,.7) 0, rgba(59,130,246,.7) 1px, transparent 0, transparent 50%);
+            background-size: 28px 28px;
+        }
+
+        .ilk-bg-wrapper .ilk-scanline {
+            position: absolute; left: 0; right: 0; height: 2px; z-index: 3; pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(26,100,255,.2), rgba(30,140,255,.4), rgba(26,100,255,.2), transparent);
+            animation: ilkScan 7s linear infinite;
+        }
+
+        @keyframes ilkScan {
+            0%   { top: -2px; opacity: 0; }
+            4%   { opacity: 1; }
+            96%  { opacity: .5; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .ilk-bg-wrapper .ilk-bracket {
+            position: absolute; width: 36px; height: 36px; z-index: 5; pointer-events: none;
+            animation: ilkFadeIn .5s ease 1.4s both;
+        }
+        .ilk-bg-wrapper .ilk-bracket::before,
+        .ilk-bg-wrapper .ilk-bracket::after {
+            content: ''; position: absolute; background: rgba(96,165,250,.55);
+        }
+        .ilk-bg-wrapper .ilk-bracket::before { width: 100%; height: 1.5px; top: 0; left: 0; }
+        .ilk-bg-wrapper .ilk-bracket::after  { width: 1.5px; height: 100%; top: 0; left: 0; }
+        .ilk-bg-wrapper .ilk-br-tl { top: 14px; left: 14px; }
+        .ilk-bg-wrapper .ilk-br-tr { top: 14px; right: 14px; transform: scaleX(-1); }
+        .ilk-bg-wrapper .ilk-br-bl { bottom: 40px; left: 14px; transform: scaleY(-1); }
+        .ilk-bg-wrapper .ilk-br-br { bottom: 40px; right: 14px; transform: scale(-1); }
+
+        @keyframes ilkFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* ── Header Gradient ───────────────────── */
         .header-bg {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            background: transparent;
             padding: 2rem 1.5rem 8rem;
             color: white;
             position: relative;
-            overflow: hidden;
+            z-index: 1;
         }
 
-        /* Subtle background decoration */
         .header-bg::before {
-            content: '';
-            position: absolute;
-            top: -50%; right: -10%;
-            width: 400px; height: 400px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-            border-radius: 50%;
+            display: none;
         }
 
         .header-top {
@@ -111,7 +168,7 @@
 
         .page-description {
             font-size: 1rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 0;
             line-height: 1.6;
             max-width: 600px;
@@ -137,26 +194,29 @@
             gap: 12px;
             font-size: 0.95rem;
             font-weight: 500;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
         }
 
-        .alert-success { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
-        .alert-error { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+        .alert-success { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+        .alert-error { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
 
-        /* ── Form Card ─────────────────────────── */
+        /* ── Form Card (Glassmorphism) ─────────── */
         .form-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            box-shadow: 0 4px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(74,217,128,.06) inset, 0 1px 0 rgba(255,255,255,.04) inset;
+            backdrop-filter: blur(40px) saturate(1.3);
+            -webkit-backdrop-filter: blur(40px) saturate(1.3);
         }
 
         /* ── Section Label ─────────────────────── */
         .section-label {
             font-size: 0.85rem;
             font-weight: 700;
-            color: #475569;
+            color: rgba(74,217,128,0.8);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 1.5rem;
@@ -188,47 +248,53 @@
         .form-row .form-group { margin-bottom: 0; }
 
         .form-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: #334155;
+            color: var(--text-muted);
+            letter-spacing: 0.03em;
         }
 
-        .form-label .req { color: #ef4444; }
+        .form-label .req { color: #f87171; }
 
         .form-control {
             width: 100%;
             padding: 0.875rem 1rem;
             background-color: var(--input-bg);
-            border: 1.5px solid transparent;
+            border: 1px solid var(--border);
             border-radius: 12px;
             font-family: inherit;
             font-size: 0.95rem;
-            color: var(--text-main);
-            transition: all 0.2s;
+            color: #e0f0e8;
+            transition: all 0.3s;
             outline: none;
         }
 
-        .form-control::placeholder { color: #94a3b8; }
+        .form-control::placeholder { color: rgba(160,200,180,.3); }
 
         .form-control:focus {
-            background-color: var(--surface);
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            background-color: rgba(10,30,22,0.8);
+            border-color: rgba(74,217,128,.4);
+            box-shadow: 0 0 0 3px rgba(74,217,128,.08), 0 0 20px rgba(74,217,128,.06);
         }
 
         select.form-control {
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(160,240,190,0.55)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 1rem center;
             background-size: 1.2rem;
             padding-right: 2.5rem;
             cursor: pointer;
         }
+        
+        select.form-control option {
+            background: #0c1814;
+            color: #e0f0e8;
+        }
 
         .form-error {
             font-size: 0.8rem;
-            color: #ef4444;
+            color: #f87171;
             font-weight: 500;
         }
 
@@ -238,14 +304,14 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
             margin-bottom: 2rem;
-            background: var(--background);
+            background: rgba(0,0,0,0.2);
             padding: 1.25rem;
             border-radius: 16px;
             border: 1px solid var(--border);
         }
 
         .download-card {
-            background: var(--surface);
+            background: rgba(10,30,22,0.6);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1rem;
@@ -258,8 +324,9 @@
         }
 
         .download-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+            border-color: rgba(74,217,128,.4);
+            background: rgba(10,30,22,0.8);
+            box-shadow: 0 4px 12px rgba(74,217,128, 0.08);
             transform: translateY(-2px);
         }
 
@@ -270,9 +337,9 @@
             margin-bottom: 0.75rem;
         }
 
-        .dl-icon.green { background: #ecfdf5; color: #10b981; }
-        .dl-icon.blue { background: #eff6ff; color: #3b82f6; }
-        .dl-icon.red { background: #fef2f2; color: #ef4444; }
+        .dl-icon.green { background: rgba(16,185,129,0.15); color: #34d399; }
+        .dl-icon.blue { background: rgba(59,130,246,0.15); color: #60a5fa; }
+        .dl-icon.red { background: rgba(239,68,68,0.15); color: #f87171; }
 
         .dl-title {
             font-size: 0.8rem;
@@ -284,18 +351,18 @@
         /* ── File Upload ───────────────────────── */
         .upload-area {
             position: relative;
-            border: 2px dashed #cbd5e1;
+            border: 2px dashed rgba(74,217,128,0.2);
             border-radius: 16px;
             padding: 2.5rem 1.5rem;
             text-align: center;
-            background: var(--surface);
+            background: rgba(10,30,22,0.4);
             transition: all 0.2s ease;
             cursor: pointer;
         }
 
         .upload-area:hover, .upload-area.dragover {
-            border-color: var(--primary);
-            background: #eff6ff;
+            border-color: rgba(74,217,128,0.5);
+            background: rgba(10,30,22,0.8);
         }
 
         .upload-area input[type="file"] {
@@ -309,17 +376,17 @@
 
         .upload-icon {
             width: 48px; height: 48px;
-            background: #f1f5f9;
+            background: rgba(74,217,128,0.1);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 1rem;
-            color: #64748b;
+            color: #4ad980;
         }
 
         .upload-area:hover .upload-icon {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: rgba(74,217,128,0.2);
+            color: #2ecc71;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .upload-title {
@@ -341,8 +408,9 @@
             gap: 8px;
             margin-top: 1rem;
             padding: 0.5rem 1rem;
-            background: #eff6ff;
-            color: var(--primary-dark);
+            background: rgba(74,217,128,0.1);
+            color: #4ad980;
+            border: 1px solid rgba(74,217,128,0.2);
             border-radius: 8px;
             font-size: 0.875rem;
             font-weight: 500;
@@ -352,7 +420,8 @@
         .btn-submit {
             width: 100%;
             padding: 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, #1a8a50, #2ecc71, #1a8a50);
+            background-size: 200% 200%;
             color: white;
             border: none;
             border-radius: 12px;
@@ -360,26 +429,40 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             margin-top: 1rem;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 24px rgba(46,204,113,.25), 0 0 0 1px rgba(46,204,113,.15) inset;
+            animation: gradShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradShift {
+            0%,100% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
         }
 
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 6px 32px rgba(46,204,113,.35), 0 0 0 1px rgba(46,204,113,.25) inset;
         }
 
         /* ── Footer ────────────────────────────── */
         .footer {
+            position: relative;
+            z-index: 2;
             text-align: center;
             padding: 0 1.5rem 3rem;
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.4);
             font-size: 0.85rem;
+        }
+        
+        .footer a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-weight: 600;
         }
 
         /* ── Responsive ────────────────────────── */
@@ -395,6 +478,18 @@
     </style>
 </head>
 <body>
+
+    <!-- Animated Background Elements from Validasi Data -->
+    <div class="ilk-bg-wrapper">
+        <canvas id="ilk-rain"></canvas>
+        <div class="ilk-vignette"></div>
+        <div class="ilk-geo"></div>
+        <div class="ilk-scanline"></div>
+        <div class="ilk-bracket ilk-br-tl"></div>
+        <div class="ilk-bracket ilk-br-tr"></div>
+        <div class="ilk-bracket ilk-br-bl"></div>
+        <div class="ilk-bracket ilk-br-br"></div>
+    </div>
 
     <!-- Header Gradient Background -->
     <div class="header-bg">
@@ -546,9 +641,11 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; {{ date('Y') }} <a href="/" style="color: #64748b; text-decoration: none; font-weight: 600;">PDPT Universitas Gunung Kidul</a>. All rights reserved.</p>
+        <p>&copy; {{ date('Y') }} <a href="/">PDPT Universitas Gunung Kidul</a>. All rights reserved.</p>
     </footer>
 
+    <!-- Animasi script dari konversi-nilai-login.js -->
+    <script src="{{ asset('js/konversi-nilai-login.js') . '?v=' . time() }}"></script>
     <script>
         // File Upload Handlers
         const fileInput = document.getElementById('fileInput');
@@ -560,8 +657,8 @@
             if (this.files && this.files.length > 0) {
                 fileName.textContent = this.files[0].name;
                 fileSelected.style.display = 'flex';
-                uploadArea.style.borderColor = 'var(--primary)';
-                uploadArea.style.background = '#eff6ff';
+                uploadArea.style.borderColor = 'rgba(74,217,128,0.5)';
+                uploadArea.style.background = 'rgba(10,30,22,0.8)';
             } else {
                 fileSelected.style.display = 'none';
                 uploadArea.style.borderColor = '';
