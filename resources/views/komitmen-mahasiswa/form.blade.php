@@ -152,65 +152,22 @@
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
         }
 
-        /* ── Download Section ──────────────────── */
+        /* ── Section Label ─────────────────────── */
         .section-label {
             font-size: 0.85rem;
             font-weight: 700;
             color: #475569;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            margin-top: 2rem;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 3rem;
-            background: var(--background);
-            padding: 1.25rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-        }
-
-        .download-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .download-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .dl-icon {
-            width: 40px; height: 40px;
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 0.75rem;
-        }
-
-        .dl-icon.green { background: #ecfdf5; color: #10b981; }
-        .dl-icon.blue { background: #eff6ff; color: #3b82f6; }
-        .dl-icon.red { background: #fef2f2; color: #ef4444; }
-
-        .dl-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 0.25rem;
+        
+        .section-label:first-child {
+            margin-top: 0;
         }
 
         /* ── Form Layout ───────────────────────── */
@@ -273,6 +230,55 @@
             font-size: 0.8rem;
             color: #ef4444;
             font-weight: 500;
+        }
+
+        /* ── Download Section ──────────────────── */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: var(--background);
+            padding: 1.25rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .download-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .download-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .dl-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .dl-icon.green { background: #ecfdf5; color: #10b981; }
+        .dl-icon.blue { background: #eff6ff; color: #3b82f6; }
+        .dl-icon.red { background: #fef2f2; color: #ef4444; }
+
+        .dl-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
         }
 
         /* ── File Upload ───────────────────────── */
@@ -432,51 +438,24 @@
 
         <div class="form-card">
             
-            <!-- Download Section -->
-            <div class="section-label">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                1. Download & Cetak Formulir
-            </div>
-
-            <div class="download-grid">
-                <a href="https://s.id/FORM-MELANJUTKAN-STUDI" target="_blank" rel="noopener" class="download-card">
-                    <div class="dl-icon green">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div class="dl-title">Melanjutkan Studi</div>
-                </a>
-                <a href="https://s.id/FORM-PINDAH-PT" target="_blank" rel="noopener" class="download-card">
-                    <div class="dl-icon blue">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
-                    </div>
-                    <div class="dl-title">Pindah PT</div>
-                </a>
-                <a href="https://s.id/FORM-PENGUNDURAN-DIRI" target="_blank" rel="noopener" class="download-card">
-                    <div class="dl-icon red">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div class="dl-title">Pengunduran Diri</div>
-                </a>
-            </div>
-
-            <!-- Form Section -->
-            <div class="section-label" style="margin-bottom: 1.5rem;">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
-                2. Isi Data & Upload
-            </div>
-
             <form action="{{ route('komitmen-mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
+                <!-- Section 1: Form Data Diri -->
+                <div class="section-label">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    1. Isi Data Diri
+                </div>
+
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Nama Lengkap <span class="req">*</span></label>
-                        <input type="text" name="nama" class="form-control" placeholder="Nama sesuai KTP/KTM" value="{{ old('nama') }}" required>
+                        <input type="text" name="nama" id="inputNama" class="form-control" placeholder="Nama sesuai KTP/KTM" value="{{ old('nama') }}" required>
                         @error('nama') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
                     <div class="form-group">
                         <label class="form-label">NIM <span class="req">*</span></label>
-                        <input type="text" name="nim" class="form-control" placeholder="Nomor Induk Mahasiswa" value="{{ old('nim') }}" required>
+                        <input type="text" name="nim" id="inputNim" class="form-control" placeholder="Nomor Induk Mahasiswa" value="{{ old('nim') }}" required>
                         @error('nim') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
                 </div>
@@ -496,7 +475,7 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nomor WhatsApp <span class="req">*</span></label>
-                        <input type="tel" name="nomor_wa" class="form-control" placeholder="08xxxxxxxxxx" value="{{ old('nomor_wa') }}" required>
+                        <input type="tel" name="nomor_wa" id="inputWa" class="form-control" placeholder="08xxxxxxxxxx" value="{{ old('nomor_wa') }}" required>
                         @error('nomor_wa') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
                 </div>
@@ -512,7 +491,35 @@
                     @error('tindak_lanjut') <div class="form-error">{{ $message }}</div> @enderror
                 </div>
 
-                <div class="form-group" style="margin-top: 2rem;">
+
+                <!-- Section 2: Download Formulir & Upload -->
+                <div class="section-label">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    2. Pilih Download & Cetak Formulir Berikut
+                </div>
+
+                <div class="download-grid">
+                    <a href="https://s.id/FORM-MELANJUTKAN-STUDI" target="_blank" rel="noopener" class="download-card">
+                        <div class="dl-icon green">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div class="dl-title">Melanjutkan Studi</div>
+                    </a>
+                    <a href="https://s.id/FORM-PINDAH-PT" target="_blank" rel="noopener" class="download-card">
+                        <div class="dl-icon blue">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                        </div>
+                        <div class="dl-title">Pindah PT</div>
+                    </a>
+                    <a href="https://s.id/FORM-PENGUNDURAN-DIRI" target="_blank" rel="noopener" class="download-card">
+                        <div class="dl-icon red">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div class="dl-title">Pengunduran Diri</div>
+                    </a>
+                </div>
+
+                <div class="form-group" style="margin-top: 1rem;">
                     <label class="form-label">Upload Formulir Komitmen (PDF/Image) <span class="req">*</span></label>
                     <div class="upload-area" id="uploadArea">
                         <input type="file" name="file_berkas" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
@@ -543,6 +550,7 @@
     </footer>
 
     <script>
+        // File Upload Handlers
         const fileInput = document.getElementById('fileInput');
         const uploadArea = document.getElementById('uploadArea');
         const fileSelected = document.getElementById('fileSelected');
@@ -578,6 +586,26 @@
                 fileInput.files = e.dataTransfer.files;
                 fileInput.dispatchEvent(new Event('change'));
             }
+        });
+
+        // Input Validations
+        const inputNama = document.getElementById('inputNama');
+        const inputNim = document.getElementById('inputNim');
+        const inputWa = document.getElementById('inputWa');
+
+        // Nama: hanya huruf dan spasi
+        inputNama.addEventListener('input', function() {
+            this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+        });
+
+        // NIM: hanya angka
+        inputNim.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Nomor WA: hanya angka
+        inputWa.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
         });
     </script>
 </body>
