@@ -44,7 +44,7 @@
         <div class="brand-text">
           <span class="brand-eyebrow">PDPT UGK</span>
           <h1 class="brand-title">Validasi Data</h1>
-          <p class="brand-sub">Verifikasi dan validasi rekam data akademik</p>
+          <p class="brand-sub">Verifikasi dan validasi data Mahasiswa</p>
         </div>
       </div>
 
